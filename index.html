@@ -1,880 +1,856 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta http-equiv="Content-Style-Type" content="text/css">
-  <title></title>
-  <meta name="Generator" content="Cocoa HTML Writer">
-  <meta name="CocoaVersion" content="2685.4">
-  <style type="text/css">
-    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 13.0px Helvetica; -webkit-text-stroke: #000000}
-    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 13.0px Helvetica; -webkit-text-stroke: #000000; min-height: 16.0px}
-    p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 13.0px Helvetica; color: #094fd1; -webkit-text-stroke: #094fd1}
-    span.s1 {font-kerning: none}
-    span.s2 {font-kerning: none; color: #000000; -webkit-text-stroke: 0px #000000}
-    span.s3 {text-decoration: underline ; font-kerning: none; -webkit-text-stroke: 0px #094fd1}
-    span.s4 {text-decoration: underline ; font-kerning: none; color: #094fd1; -webkit-text-stroke: 0px #094fd1}
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>צ'קליסט מסירת טסלה מודל 3</title>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --surface: #111118;
+    --surface2: #1a1a24;
+    --border: #2a2a3a;
+    --accent: #e82127;
+    --text: #e8e8f0;
+    --text-muted: #7070a0;
+    --check: #00d4aa;
+    --check-bg: rgba(0,212,170,0.08);
+    --accent-en: #4f8ef7;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Heebo', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    direction: rtl;
+  }
+
+  header {
+    background: linear-gradient(135deg, #0a0a0f 0%, #1a0a0f 50%, #0a0a0f 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 2rem;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    backdrop-filter: blur(20px);
+  }
+
+  .header-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .logo-area h1 {
+    font-size: 1.6rem;
+    font-weight: 900;
+    letter-spacing: -0.03em;
+    background: linear-gradient(135deg, #fff 30%, var(--accent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .logo-area p {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    font-weight: 300;
+    margin-top: 2px;
+  }
+
+  .progress-area {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .progress-ring-wrap {
+    position: relative;
+    width: 64px;
+    height: 64px;
+  }
+
+  .progress-ring { transform: rotate(-90deg); }
+  .progress-bg { fill: none; stroke: var(--border); stroke-width: 4; }
+  .progress-bar {
+    fill: none;
+    stroke: var(--check);
+    stroke-width: 4;
+    stroke-linecap: round;
+    stroke-dasharray: 163;
+    stroke-dashoffset: 163;
+    transition: stroke-dashoffset 0.6s cubic-bezier(.4,0,.2,1);
+  }
+
+  .progress-text {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--check);
+    line-height: 1;
+  }
+  .progress-text span { font-size: 0.55rem; color: var(--text-muted); font-weight: 400; }
+
+  .stats-row { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+
+  .stat-pill {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 0.25rem 0.75rem;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+  }
+  .stat-pill strong { color: var(--text); }
+  .stat-pill strong.done { color: var(--check); }
+
+  .reset-btn {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    border-radius: 8px;
+    padding: 0.4rem 0.8rem;
+    font-family: 'Heebo', sans-serif;
+    font-size: 0.75rem;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .reset-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+  main {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem;
+  }
+
+  /* Section group label */
+  .section-group-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    padding: 0.5rem 0 0.75rem 0;
+    margin-top: 0.5rem;
+  }
+  .section-group-label.en {
+    direction: ltr;
+    text-align: left;
+    color: var(--accent-en);
+    font-family: 'Inter', sans-serif;
+  }
+
+  .section {
+    margin-bottom: 1.5rem;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    transition: border-color 0.3s;
+  }
+  .section.complete { border-color: rgba(0,212,170,0.3); }
+
+  /* English section styling */
+  .section.english {
+    border-color: rgba(79,142,247,0.25);
+    direction: ltr;
+  }
+  .section.english.complete { border-color: rgba(0,212,170,0.3); }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 1.25rem;
+    cursor: pointer;
+    background: var(--surface);
+    user-select: none;
+    transition: background 0.2s;
+  }
+  .section-header:hover { background: var(--surface2); }
+
+  .section-num {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    background: var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.85rem;
+    font-weight: 700;
+    flex-shrink: 0;
+    transition: background 0.3s;
+  }
+  .section.english .section-num { background: var(--accent-en); font-family: 'Inter', sans-serif; }
+  .section.complete .section-num { background: var(--check); }
+
+  .section-title {
+    flex: 1;
+    font-size: 1rem;
+    font-weight: 700;
+  }
+  .section.english .section-title { font-family: 'Inter', sans-serif; font-size: 0.95rem; }
+
+  .section-meta { display: flex; align-items: center; gap: 0.75rem; }
+  .section-count { font-size: 0.75rem; color: var(--text-muted); }
+  .section-count .done { color: var(--check); font-weight: 700; }
+
+  .chevron {
+    color: var(--text-muted);
+    font-size: 0.75rem;
+    transition: transform 0.3s;
+  }
+  .section.collapsed .chevron { transform: rotate(180deg); }
+  .section.english .chevron { transform: rotate(0deg); }
+  .section.english.collapsed .chevron { transform: rotate(180deg); }
+
+  .mini-bar {
+    width: 60px;
+    height: 3px;
+    background: var(--border);
+    border-radius: 999px;
+    overflow: hidden;
+  }
+  .mini-bar-fill {
+    height: 100%;
+    background: var(--check);
+    border-radius: 999px;
+    transition: width 0.4s ease;
+  }
+
+  .section-body {
+    border-top: 1px solid var(--border);
+    background: var(--bg);
+  }
+  .section.collapsed .section-body { display: none; }
+
+  /* ── Main items ── */
+  .item {
+    padding: 0.85rem 1.25rem;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+  .item:last-child { border-bottom: none; }
+
+  .item.no-subs {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .item.no-subs:hover { background: var(--surface2); }
+  .item.no-subs.checked { background: var(--check-bg); }
+
+  .item.has-subs .item-label {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    padding-bottom: 0.4rem;
+  }
+  .section.english .item.has-subs .item-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.82rem;
+  }
+
+  @keyframes pop {
+    0%   { transform: scale(1); }
+    50%  { transform: scale(1.3); }
+    100% { transform: scale(1); }
+  }
+
+  .checkbox {
+    width: 22px;
+    height: 22px;
+    border: 2px solid var(--border);
+    border-radius: 6px;
+    flex-shrink: 0;
+    margin-top: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s cubic-bezier(.4,0,.2,1);
+    background: transparent;
+  }
+  .item.no-subs.checked .checkbox {
+    background: var(--check);
+    border-color: var(--check);
+    animation: pop 0.25s ease;
+  }
+  .checkmark {
+    opacity: 0;
+    color: #000;
+    font-size: 0.78rem;
+    font-weight: 700;
+    transition: opacity 0.15s;
+  }
+  .item.no-subs.checked .checkmark { opacity: 1; }
+
+  .item-text {
+    font-size: 0.875rem;
+    line-height: 1.6;
+    flex: 1;
+    transition: color 0.2s;
+  }
+  .section.english .item-text { font-family: 'Inter', sans-serif; font-size: 0.85rem; }
+
+  .item.no-subs.checked .item-text {
+    color: var(--text-muted);
+    text-decoration: line-through;
+    text-decoration-color: rgba(0,212,170,0.4);
+  }
+
+  /* ── Sub-items ── */
+  .sub-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .sub-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+    padding: 0.4rem 0.5rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+  .sub-item:hover { background: rgba(255,255,255,0.04); }
+  .sub-item.checked { background: rgba(0,212,170,0.07); }
+
+  .sub-checkbox {
+    width: 18px;
+    height: 18px;
+    border: 2px solid #3a3a5a;
+    border-radius: 5px;
+    flex-shrink: 0;
+    margin-top: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s cubic-bezier(.4,0,.2,1);
+    background: transparent;
+  }
+  .sub-item.checked .sub-checkbox {
+    background: var(--check);
+    border-color: var(--check);
+    animation: popSm 0.2s ease;
+  }
+
+  @keyframes popSm {
+    0%   { transform: scale(1); }
+    50%  { transform: scale(1.4); }
+    100% { transform: scale(1); }
+  }
+
+  .sub-checkmark {
+    opacity: 0;
+    color: #000;
+    font-size: 0.65rem;
+    font-weight: 700;
+    transition: opacity 0.15s;
+  }
+  .sub-item.checked .sub-checkmark { opacity: 1; }
+
+  .sub-text {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    line-height: 1.55;
+    flex: 1;
+    transition: color 0.2s;
+  }
+  .section.english .sub-text { font-family: 'Inter', sans-serif; font-size: 0.8rem; }
+
+  .sub-item.checked .sub-text {
+    color: #3a3a5a;
+    text-decoration: line-through;
+    text-decoration-color: rgba(0,212,170,0.3);
+  }
+
+  /* ── Celebration ── */
+  .celebration {
+    text-align: center;
+    padding: 3rem 2rem;
+    display: none;
+  }
+  .celebration.show { display: block; animation: fadeIn 0.5s ease; }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: none; }
+  }
+  .celebration h2 { font-size: 2rem; font-weight: 900; margin-bottom: 0.5rem; }
+  .celebration p  { color: var(--text-muted); }
+
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+</style>
 </head>
 <body>
-<p class="p1"><span class="s1">&lt;!DOCTYPE html&gt;</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1">&lt;html lang="he" dir="rtl"&gt;</span></p>
-<p class="p1"><span class="s1">&lt;head&gt;</span></p>
-<p class="p1"><span class="s1">&lt;meta charset="UTF-8"&gt;</span></p>
-<p class="p1"><span class="s1">&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</span></p>
-<p class="p1"><span class="s1">&lt;title&gt;צ'קליסט מסירת טסלה מודל 3&lt;/title&gt;</span></p>
-<p class="p3"><span class="s2">&lt;link href="<a href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;900&amp;family=Inter:wght@400;500;600;700&amp;display=swap"><span class="s3">https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;900&amp;family=Inter:wght@400;500;600;700&amp;display=swap</span></a>" rel="stylesheet"&gt;</span></p>
-<p class="p1"><span class="s1">&lt;style&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>:root {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>--bg: #0a0a0f;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>--surface: #111118;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>--surface2: #1a1a24;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>--border: #2a2a3a;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>--accent: #e82127;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>--text: #e8e8f0;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>--text-muted: #7070a0;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>--check: #00d4aa;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>--check-bg: rgba(0,212,170,0.08);</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>--accent-en: #4f8ef7;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>}</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1">- { box-sizing: border-box; margin: 0; padding: 0; }</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1">body {</span></p>
-<p class="p1"><span class="s1">font-family: ‘Heebo’, sans-serif;</span></p>
-<p class="p1"><span class="s1">background: var(–bg);</span></p>
-<p class="p1"><span class="s1">color: var(–text);</span></p>
-<p class="p1"><span class="s1">min-height: 100vh;</span></p>
-<p class="p1"><span class="s1">direction: rtl;</span></p>
-<p class="p1"><span class="s1">}</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1">header {</span></p>
-<p class="p1"><span class="s1">background: linear-gradient(135deg, #0a0a0f 0%, #1a0a0f 50%, #0a0a0f 100%);</span></p>
-<p class="p1"><span class="s1">border-bottom: 1px solid var(–border);</span></p>
-<p class="p1"><span class="s1">padding: 2rem;</span></p>
-<p class="p1"><span class="s1">position: sticky;</span></p>
-<p class="p1"><span class="s1">top: 0;</span></p>
-<p class="p1"><span class="s1">z-index: 100;</span></p>
-<p class="p1"><span class="s1">backdrop-filter: blur(20px);</span></p>
-<p class="p1"><span class="s1">}</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1">.header-inner {</span></p>
-<p class="p1"><span class="s1">max-width: 900px;</span></p>
-<p class="p1"><span class="s1">margin: 0 auto;</span></p>
-<p class="p1"><span class="s1">display: flex;</span></p>
-<p class="p1"><span class="s1">align-items: center;</span></p>
-<p class="p1"><span class="s1">justify-content: space-between;</span></p>
-<p class="p1"><span class="s1">flex-wrap: wrap;</span></p>
-<p class="p1"><span class="s1">gap: 1rem;</span></p>
-<p class="p1"><span class="s1">}</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1">.logo-area h1 {</span></p>
-<p class="p1"><span class="s1">font-size: 1.6rem;</span></p>
-<p class="p1"><span class="s1">font-weight: 900;</span></p>
-<p class="p1"><span class="s1">letter-spacing: -0.03em;</span></p>
-<p class="p1"><span class="s1">background: linear-gradient(135deg, #fff 30%, var(–accent));</span></p>
-<p class="p1"><span class="s1">-webkit-background-clip: text;</span></p>
-<p class="p1"><span class="s1">-webkit-text-fill-color: transparent;</span></p>
-<p class="p1"><span class="s1">background-clip: text;</span></p>
-<p class="p1"><span class="s1">}</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1">.logo-area p {</span></p>
-<p class="p1"><span class="s1">font-size: 0.8rem;</span></p>
-<p class="p1"><span class="s1">color: var(–text-muted);</span></p>
-<p class="p1"><span class="s1">font-weight: 300;</span></p>
-<p class="p1"><span class="s1">margin-top: 2px;</span></p>
-<p class="p1"><span class="s1">}</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1">.progress-area {</span></p>
-<p class="p1"><span class="s1">display: flex;</span></p>
-<p class="p1"><span class="s1">align-items: center;</span></p>
-<p class="p1"><span class="s1">gap: 1rem;</span></p>
-<p class="p1"><span class="s1">}</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1">.progress-ring-wrap {</span></p>
-<p class="p1"><span class="s1">position: relative;</span></p>
-<p class="p1"><span class="s1">width: 64px;</span></p>
-<p class="p1"><span class="s1">height: 64px;</span></p>
-<p class="p1"><span class="s1">}</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1">.progress-ring { transform: rotate(-90deg); }</span></p>
-<p class="p1"><span class="s1">.progress-bg { fill: none; stroke: var(–border); stroke-width: 4; }</span></p>
-<p class="p1"><span class="s1">.progress-bar {</span></p>
-<p class="p1"><span class="s1">fill: none;</span></p>
-<p class="p1"><span class="s1">stroke: var(–check);</span></p>
-<p class="p1"><span class="s1">stroke-width: 4;</span></p>
-<p class="p1"><span class="s1">stroke-linecap: round;</span></p>
-<p class="p1"><span class="s1">stroke-dasharray: 163;</span></p>
-<p class="p1"><span class="s1">stroke-dashoffset: 163;</span></p>
-<p class="p1"><span class="s1">transition: stroke-dashoffset 0.6s cubic-bezier(.4,0,.2,1);</span></p>
-<p class="p1"><span class="s1">}</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1">.progress-text {</span></p>
-<p class="p1"><span class="s1">position: absolute;</span></p>
-<p class="p1"><span class="s1">inset: 0;</span></p>
-<p class="p1"><span class="s1">display: flex;</span></p>
-<p class="p1"><span class="s1">flex-direction: column;</span></p>
-<p class="p1"><span class="s1">align-items: center;</span></p>
-<p class="p1"><span class="s1">justify-content: center;</span></p>
-<p class="p1"><span class="s1">font-size: 0.8rem;</span></p>
-<p class="p1"><span class="s1">font-weight: 700;</span></p>
-<p class="p1"><span class="s1">color: var(–check);</span></p>
-<p class="p1"><span class="s1">line-height: 1;</span></p>
-<p class="p1"><span class="s1">}</span></p>
-<p class="p1"><span class="s1">.progress-text span { font-size: 0.55rem; color: var(–text-muted); font-weight: 400; }</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1">.stats-row { display: flex; gap: 0.5rem; flex-wrap: wrap; }</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1">.stat-pill {</span></p>
-<p class="p1"><span class="s1">background: var(–surface2);</span></p>
-<p class="p1"><span class="s1">border: 1px solid var(–border);</span></p>
-<p class="p1"><span class="s1">border-radius: 999px;</span></p>
-<p class="p1"><span class="s1">padding: 0.25rem 0.75rem;</span></p>
-<p class="p1"><span class="s1">font-size: 0.75rem;</span></p>
-<p class="p1"><span class="s1">color: var(–text-muted);</span></p>
-<p class="p1"><span class="s1">}</span></p>
-<p class="p1"><span class="s1">.stat-pill strong { color: var(–text); }</span></p>
-<p class="p1"><span class="s1">.stat-pill strong.done { color: var(–check); }</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1">.reset-btn {</span></p>
-<p class="p1"><span class="s1">background: transparent;</span></p>
-<p class="p1"><span class="s1">border: 1px solid var(–border);</span></p>
-<p class="p1"><span class="s1">color: var(–text-muted);</span></p>
-<p class="p1"><span class="s1">border-radius: 8px;</span></p>
-<p class="p1"><span class="s1">padding: 0.4rem 0.8rem;</span></p>
-<p class="p1"><span class="s1">font-family: ‘Heebo’, sans-serif;</span></p>
-<p class="p1"><span class="s1">font-size: 0.75rem;</span></p>
-<p class="p1"><span class="s1">cursor: pointer;</span></p>
-<p class="p1"><span class="s1">transition: all 0.2s;</span></p>
-<p class="p1"><span class="s1">}</span></p>
-<p class="p1"><span class="s1">.reset-btn:hover { border-color: var(–accent); color: var(–accent); }</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1">main {</span></p>
-<p class="p1"><span class="s1">max-width: 900px;</span></p>
-<p class="p1"><span class="s1">margin: 0 auto;</span></p>
-<p class="p1"><span class="s1">padding: 2rem;</span></p>
-<p class="p1"><span class="s1">}</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1">/* Section group label */</span></p>
-<p class="p1"><span class="s1">.section-group-label {</span></p>
-<p class="p1"><span class="s1">font-size: 0.7rem;</span></p>
-<p class="p1"><span class="s1">font-weight: 700;</span></p>
-<p class="p1"><span class="s1">letter-spacing: 0.12em;</span></p>
-<p class="p1"><span class="s1">text-transform: uppercase;</span></p>
-<p class="p1"><span class="s1">color: var(–text-muted);</span></p>
-<p class="p1"><span class="s1">padding: 0.5rem 0 0.75rem 0;</span></p>
-<p class="p1"><span class="s1">margin-top: 0.5rem;</span></p>
-<p class="p1"><span class="s1">}</span></p>
-<p class="p1"><span class="s1">.section-group-label.en {</span></p>
-<p class="p1"><span class="s1">direction: ltr;</span></p>
-<p class="p1"><span class="s1">text-align: left;</span></p>
-<p class="p1"><span class="s1">color: var(–accent-en);</span></p>
-<p class="p1"><span class="s1">font-family: ‘Inter’, sans-serif;</span></p>
-<p class="p1"><span class="s1">}</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1">.section {</span></p>
-<p class="p1"><span class="s1">margin-bottom: 1.5rem;</span></p>
-<p class="p1"><span class="s1">border: 1px solid var(–border);</span></p>
-<p class="p1"><span class="s1">border-radius: 16px;</span></p>
-<p class="p1"><span class="s1">overflow: hidden;</span></p>
-<p class="p1"><span class="s1">transition: border-color 0.3s;</span></p>
-<p class="p1"><span class="s1">}</span></p>
-<p class="p1"><span class="s1">.section.complete { border-color: rgba(0,212,170,0.3); }</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1">/* English section styling */</span></p>
-<p class="p1"><span class="s1">.section.english {</span></p>
-<p class="p1"><span class="s1">border-color: rgba(79,142,247,0.25);</span></p>
-<p class="p1"><span class="s1">direction: ltr;</span></p>
-<p class="p1"><span class="s1">}</span></p>
-<p class="p1"><span class="s1">.section.english.complete { border-color: rgba(0,212,170,0.3); }</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1">.section-header {</span></p>
-<p class="p1"><span class="s1">display: flex;</span></p>
-<p class="p1"><span class="s1">align-items: center;</span></p>
-<p class="p1"><span class="s1">gap: 1rem;</span></p>
-<p class="p1"><span class="s1">padding: 1rem 1.25rem;</span></p>
-<p class="p1"><span class="s1">cursor: pointer;</span></p>
-<p class="p1"><span class="s1">background: var(–surface);</span></p>
-<p class="p1"><span class="s1">user-select: none;</span></p>
-<p class="p1"><span class="s1">transition: background 0.2s;</span></p>
-<p class="p1"><span class="s1">}</span></p>
-<p class="p1"><span class="s1">.section-header:hover { background: var(–surface2); }</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1">.section-num {</span></p>
-<p class="p1"><span class="s1">width: 32px;</span></p>
-<p class="p1"><span class="s1">height: 32px;</span></p>
-<p class="p1"><span class="s1">border-radius: 8px;</span></p>
-<p class="p1"><span class="s1">background: var(–accent);</span></p>
-<p class="p1"><span class="s1">display: flex;</span></p>
-<p class="p1"><span class="s1">align-items: center;</span></p>
-<p class="p1"><span class="s1">justify-content: center;</span></p>
-<p class="p1"><span class="s1">font-size: 0.85rem;</span></p>
-<p class="p1"><span class="s1">font-weight: 700;</span></p>
-<p class="p1"><span class="s1">flex-shrink: 0;</span></p>
-<p class="p1"><span class="s1">transition: background 0.3s;</span></p>
-<p class="p1"><span class="s1">}</span></p>
-<p class="p1"><span class="s1">.section.english .section-num { background: var(–accent-en); font-family: ‘Inter’, sans-serif; }</span></p>
-<p class="p1"><span class="s1">.section.complete .section-num { background: var(–check); }</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1">.section-title {</span></p>
-<p class="p1"><span class="s1">flex: 1;</span></p>
-<p class="p1"><span class="s1">font-size: 1rem;</span></p>
-<p class="p1"><span class="s1">font-weight: 700;</span></p>
-<p class="p1"><span class="s1">}</span></p>
-<p class="p1"><span class="s1">.section.english .section-title { font-family: ‘Inter’, sans-serif; font-size: 0.95rem; }</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1">.section-meta { display: flex; align-items: center; gap: 0.75rem; }</span></p>
-<p class="p1"><span class="s1">.section-count { font-size: 0.75rem; color: var(–text-muted); }</span></p>
-<p class="p1"><span class="s1">.section-count .done { color: var(–check); font-weight: 700; }</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1">.chevron {</span></p>
-<p class="p1"><span class="s1">color: var(–text-muted);</span></p>
-<p class="p1"><span class="s1">font-size: 0.75rem;</span></p>
-<p class="p1"><span class="s1">transition: transform 0.3s;</span></p>
-<p class="p1"><span class="s1">}</span></p>
-<p class="p1"><span class="s1">.section.collapsed .chevron { transform: rotate(180deg); }</span></p>
-<p class="p1"><span class="s1">.section.english .chevron { transform: rotate(0deg); }</span></p>
-<p class="p1"><span class="s1">.section.english.collapsed .chevron { transform: rotate(180deg); }</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1">.mini-bar {</span></p>
-<p class="p1"><span class="s1">width: 60px;</span></p>
-<p class="p1"><span class="s1">height: 3px;</span></p>
-<p class="p1"><span class="s1">background: var(–border);</span></p>
-<p class="p1"><span class="s1">border-radius: 999px;</span></p>
-<p class="p1"><span class="s1">overflow: hidden;</span></p>
-<p class="p1"><span class="s1">}</span></p>
-<p class="p1"><span class="s1">.mini-bar-fill {</span></p>
-<p class="p1"><span class="s1">height: 100%;</span></p>
-<p class="p1"><span class="s1">background: var(–check);</span></p>
-<p class="p1"><span class="s1">border-radius: 999px;</span></p>
-<p class="p1"><span class="s1">transition: width 0.4s ease;</span></p>
-<p class="p1"><span class="s1">}</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1">.section-body {</span></p>
-<p class="p1"><span class="s1">border-top: 1px solid var(–border);</span></p>
-<p class="p1"><span class="s1">background: var(–bg);</span></p>
-<p class="p1"><span class="s1">}</span></p>
-<p class="p1"><span class="s1">.section.collapsed .section-body { display: none; }</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1">/* ── Main items ── */</span></p>
-<p class="p1"><span class="s1">.item {</span></p>
-<p class="p1"><span class="s1">padding: 0.85rem 1.25rem;</span></p>
-<p class="p1"><span class="s1">border-bottom: 1px solid rgba(255,255,255,0.04);</span></p>
-<p class="p1"><span class="s1">}</span></p>
-<p class="p1"><span class="s1">.item:last-child { border-bottom: none; }</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1">.<a href="http://item.no/"><span class="s4">item.no</span></a>-subs {</span></p>
-<p class="p1"><span class="s1">display: flex;</span></p>
-<p class="p1"><span class="s1">align-items: flex-start;</span></p>
-<p class="p1"><span class="s1">gap: 0.75rem;</span></p>
-<p class="p1"><span class="s1">cursor: pointer;</span></p>
-<p class="p1"><span class="s1">transition: background 0.2s;</span></p>
-<p class="p1"><span class="s1">}</span></p>
-<p class="p1"><span class="s1">.<a href="http://item.no/"><span class="s4">item.no</span></a>-subs:hover { background: var(–surface2); }</span></p>
-<p class="p1"><span class="s1">.<a href="http://item.no/"><span class="s4">item.no</span></a>-subs.checked { background: var(–check-bg); }</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1">.item.has-subs .item-label {</span></p>
-<p class="p1"><span class="s1">font-size: 0.85rem;</span></p>
-<p class="p1"><span class="s1">font-weight: 700;</span></p>
-<p class="p1"><span class="s1">color: var(–text-muted);</span></p>
-<p class="p1"><span class="s1">padding-bottom: 0.4rem;</span></p>
-<p class="p1"><span class="s1">}</span></p>
-<p class="p1"><span class="s1">.section.english .item.has-subs .item-label {</span></p>
-<p class="p1"><span class="s1">font-family: ‘Inter’, sans-serif;</span></p>
-<p class="p1"><span class="s1">font-size: 0.82rem;</span></p>
-<p class="p1"><span class="s1">}</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1">@keyframes pop {</span></p>
-<p class="p1"><span class="s1">0% <span class="Apple-converted-space">  </span>{ transform: scale(1); }</span></p>
-<p class="p1"><span class="s1">50%<span class="Apple-converted-space">  </span>{ transform: scale(1.3); }</span></p>
-<p class="p1"><span class="s1">100% { transform: scale(1); }</span></p>
-<p class="p1"><span class="s1">}</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1">.checkbox {</span></p>
-<p class="p1"><span class="s1">width: 22px;</span></p>
-<p class="p1"><span class="s1">height: 22px;</span></p>
-<p class="p1"><span class="s1">border: 2px solid var(–border);</span></p>
-<p class="p1"><span class="s1">border-radius: 6px;</span></p>
-<p class="p1"><span class="s1">flex-shrink: 0;</span></p>
-<p class="p1"><span class="s1">margin-top: 2px;</span></p>
-<p class="p1"><span class="s1">display: flex;</span></p>
-<p class="p1"><span class="s1">align-items: center;</span></p>
-<p class="p1"><span class="s1">justify-content: center;</span></p>
-<p class="p1"><span class="s1">transition: all 0.2s cubic-bezier(.4,0,.2,1);</span></p>
-<p class="p1"><span class="s1">background: transparent;</span></p>
-<p class="p1"><span class="s1">}</span></p>
-<p class="p1"><span class="s1">.<a href="http://item.no/"><span class="s4">item.no</span></a>-subs.checked .checkbox {</span></p>
-<p class="p1"><span class="s1">background: var(–check);</span></p>
-<p class="p1"><span class="s1">border-color: var(–check);</span></p>
-<p class="p1"><span class="s1">animation: pop 0.25s ease;</span></p>
-<p class="p1"><span class="s1">}</span></p>
-<p class="p1"><span class="s1">.checkmark {</span></p>
-<p class="p1"><span class="s1">opacity: 0;</span></p>
-<p class="p1"><span class="s1">color: #000;</span></p>
-<p class="p1"><span class="s1">font-size: 0.78rem;</span></p>
-<p class="p1"><span class="s1">font-weight: 700;</span></p>
-<p class="p1"><span class="s1">transition: opacity 0.15s;</span></p>
-<p class="p1"><span class="s1">}</span></p>
-<p class="p1"><span class="s1">.<a href="http://item.no/"><span class="s4">item.no</span></a>-subs.checked .checkmark { opacity: 1; }</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1">.item-text {</span></p>
-<p class="p1"><span class="s1">font-size: 0.875rem;</span></p>
-<p class="p1"><span class="s1">line-height: 1.6;</span></p>
-<p class="p1"><span class="s1">flex: 1;</span></p>
-<p class="p1"><span class="s1">transition: color 0.2s;</span></p>
-<p class="p1"><span class="s1">}</span></p>
-<p class="p1"><span class="s1">.section.english .item-text { font-family: ‘Inter’, sans-serif; font-size: 0.85rem; }</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1">.<a href="http://item.no/"><span class="s4">item.no</span></a>-subs.checked .item-text {</span></p>
-<p class="p1"><span class="s1">color: var(–text-muted);</span></p>
-<p class="p1"><span class="s1">text-decoration: line-through;</span></p>
-<p class="p1"><span class="s1">text-decoration-color: rgba(0,212,170,0.4);</span></p>
-<p class="p1"><span class="s1">}</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1">/* ── Sub-items ── */</span></p>
-<p class="p1"><span class="s1">.sub-list {</span></p>
-<p class="p1"><span class="s1">display: flex;</span></p>
-<p class="p1"><span class="s1">flex-direction: column;</span></p>
-<p class="p1"><span class="s1">gap: 2px;</span></p>
-<p class="p1"><span class="s1">}</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1">.sub-item {</span></p>
-<p class="p1"><span class="s1">display: flex;</span></p>
-<p class="p1"><span class="s1">align-items: flex-start;</span></p>
-<p class="p1"><span class="s1">gap: 0.6rem;</span></p>
-<p class="p1"><span class="s1">padding: 0.4rem 0.5rem;</span></p>
-<p class="p1"><span class="s1">border-radius: 8px;</span></p>
-<p class="p1"><span class="s1">cursor: pointer;</span></p>
-<p class="p1"><span class="s1">transition: background 0.15s;</span></p>
-<p class="p1"><span class="s1">}</span></p>
-<p class="p1"><span class="s1">.sub-item:hover { background: rgba(255,255,255,0.04); }</span></p>
-<p class="p1"><span class="s1">.sub-item.checked { background: rgba(0,212,170,0.07); }</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1">.sub-checkbox {</span></p>
-<p class="p1"><span class="s1">width: 18px;</span></p>
-<p class="p1"><span class="s1">height: 18px;</span></p>
-<p class="p1"><span class="s1">border: 2px solid #3a3a5a;</span></p>
-<p class="p1"><span class="s1">border-radius: 5px;</span></p>
-<p class="p1"><span class="s1">flex-shrink: 0;</span></p>
-<p class="p1"><span class="s1">margin-top: 2px;</span></p>
-<p class="p1"><span class="s1">display: flex;</span></p>
-<p class="p1"><span class="s1">align-items: center;</span></p>
-<p class="p1"><span class="s1">justify-content: center;</span></p>
-<p class="p1"><span class="s1">transition: all 0.2s cubic-bezier(.4,0,.2,1);</span></p>
-<p class="p1"><span class="s1">background: transparent;</span></p>
-<p class="p1"><span class="s1">}</span></p>
-<p class="p1"><span class="s1">.sub-item.checked .sub-checkbox {</span></p>
-<p class="p1"><span class="s1">background: var(–check);</span></p>
-<p class="p1"><span class="s1">border-color: var(–check);</span></p>
-<p class="p1"><span class="s1">animation: popSm 0.2s ease;</span></p>
-<p class="p1"><span class="s1">}</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1">@keyframes popSm {</span></p>
-<p class="p1"><span class="s1">0% <span class="Apple-converted-space">  </span>{ transform: scale(1); }</span></p>
-<p class="p1"><span class="s1">50%<span class="Apple-converted-space">  </span>{ transform: scale(1.4); }</span></p>
-<p class="p1"><span class="s1">100% { transform: scale(1); }</span></p>
-<p class="p1"><span class="s1">}</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1">.sub-checkmark {</span></p>
-<p class="p1"><span class="s1">opacity: 0;</span></p>
-<p class="p1"><span class="s1">color: #000;</span></p>
-<p class="p1"><span class="s1">font-size: 0.65rem;</span></p>
-<p class="p1"><span class="s1">font-weight: 700;</span></p>
-<p class="p1"><span class="s1">transition: opacity 0.15s;</span></p>
-<p class="p1"><span class="s1">}</span></p>
-<p class="p1"><span class="s1">.sub-item.checked .sub-checkmark { opacity: 1; }</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1">.sub-text {</span></p>
-<p class="p1"><span class="s1">font-size: 0.82rem;</span></p>
-<p class="p1"><span class="s1">color: var(–text-muted);</span></p>
-<p class="p1"><span class="s1">line-height: 1.55;</span></p>
-<p class="p1"><span class="s1">flex: 1;</span></p>
-<p class="p1"><span class="s1">transition: color 0.2s;</span></p>
-<p class="p1"><span class="s1">}</span></p>
-<p class="p1"><span class="s1">.section.english .sub-text { font-family: ‘Inter’, sans-serif; font-size: 0.8rem; }</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1">.sub-item.checked .sub-text {</span></p>
-<p class="p1"><span class="s1">color: #3a3a5a;</span></p>
-<p class="p1"><span class="s1">text-decoration: line-through;</span></p>
-<p class="p1"><span class="s1">text-decoration-color: rgba(0,212,170,0.3);</span></p>
-<p class="p1"><span class="s1">}</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1">/* ── Celebration ── */</span></p>
-<p class="p1"><span class="s1">.celebration {</span></p>
-<p class="p1"><span class="s1">text-align: center;</span></p>
-<p class="p1"><span class="s1">padding: 3rem 2rem;</span></p>
-<p class="p1"><span class="s1">display: none;</span></p>
-<p class="p1"><span class="s1">}</span></p>
-<p class="p1"><span class="s1">.celebration.show { display: block; animation: fadeIn 0.5s ease; }</span></p>
-<p class="p1"><span class="s1">@keyframes fadeIn {</span></p>
-<p class="p1"><span class="s1">from { opacity: 0; transform: translateY(20px); }</span></p>
-<p class="p1"><span class="s1">to <span class="Apple-converted-space">  </span>{ opacity: 1; transform: none; }</span></p>
-<p class="p1"><span class="s1">}</span></p>
-<p class="p1"><span class="s1">.celebration h2 { font-size: 2rem; font-weight: 900; margin-bottom: 0.5rem; }</span></p>
-<p class="p1"><span class="s1">.celebration p<span class="Apple-converted-space">  </span>{ color: var(–text-muted); }</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1">::-webkit-scrollbar { width: 6px; }</span></p>
-<p class="p1"><span class="s1">::-webkit-scrollbar-track { background: var(–bg); }</span></p>
-<p class="p1"><span class="s1">::-webkit-scrollbar-thumb { background: var(–border); border-radius: 3px; }</span></p>
-<p class="p1"><span class="s1">&lt;/style&gt;</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1">&lt;/head&gt;</span></p>
-<p class="p1"><span class="s1">&lt;body&gt;</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1">&lt;header&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>&lt;div class="header-inner"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>&lt;div class="logo-area"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">     </span>&lt;h1&gt;🚗 צ'קליסט מסירת Model 3&lt;/h1&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">     </span>&lt;p&gt;Tesla Highland — בדיקה לפני חתימה + הגדרות יום 1&lt;/p&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>&lt;div class="progress-area"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">     </span>&lt;div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">       </span>&lt;div class="stats-row" id="statsRow"&gt;&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">     </span>&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">     </span>&lt;div class="progress-ring-wrap"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">       </span>&lt;svg class="progress-ring" width="64" height="64" viewBox="0 0 64 64"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">         </span>&lt;circle class="progress-bg" cx="32" cy="32" r="26"/&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">         </span>&lt;circle class="progress-bar" id="progressBar" cx="32" cy="32" r="26"/&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">       </span>&lt;/svg&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">       </span>&lt;div class="progress-text" id="progressText"&gt;0%&lt;span&gt;הושלם&lt;/span&gt;&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">     </span>&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">     </span>&lt;button class="reset-btn" onclick="resetAll()"&gt;אפס הכל&lt;/button&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1">&lt;/header&gt;</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1">&lt;main&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>&lt;div id="checklistContainer"&gt;&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>&lt;div class="celebration" id="celebration"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>&lt;div style="font-size:4rem; margin-bottom:1rem;"&gt;🎉&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>&lt;h2 style="background: linear-gradient(135deg, var(--check), #00ffcc); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;"&gt;הצ'קליסט הושלם!&lt;/h2&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>&lt;p&gt;בדקת את כל הפריטים. נסיעה טובה! 🚗⚡&lt;/p&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1">&lt;/main&gt;</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1">&lt;script&gt;</span></p>
-<p class="p1"><span class="s1">const SECTIONS = [</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>// ── Hebrew delivery checklist ──────────────────────────────────────</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>{</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>title: "מסמכים, רישוי ואחריות",</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>items: [</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">     </span>{ text: "לוודא שהרכב שעומד מולך הוא בדיוק הדגם והגרסה שהזמנת", subs: ["סוג הנעה: RWD / Long Range / Performance", "שנת דגם ותצורת Highland (אם רלוונטי)", "צבע חוץ וצבע פנים כפי שמופיע בהזמנה", "גודל חישוקים (18\" / 19\" / 20\") והחישוק עצמו זהה לתמונות/מפרט באתר"] },</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">     </span>{ text: "בדיקת מספר שלדה (VIN)", subs: ["להשוות בין מספר ה‑VIN שמופיע: על השמשה הקדמית, על מדבקת הדלת (עמוד B), במסך הרכב, בהזמנה, ברישיון הרכב ובמסמכי הביטוח", "לוודא שכל המספרים זהים אחד לאחד, ללא טעות ספרה"] },</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">     </span>{ text: "רישיון רכב", subs: ["לוודא ששם הבעלים (או חברת הליסינג) נכון", "הדגם ברישיון תואם לדגם בפועל (טסלה מודל 3, הגרסה הנכונה)", "שנת ייצור ותאריך רישוי תואמים למה שסיכמתם", "סוג דלק/הנעה רשום כחשמלי, וקוד הדגם/הספק מתאימים למפרט הישראלי"] },</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">     </span>{ text: "קילומטראז': להסתכל על נתון הק\"מ בלוח המחוונים ולהבטיח שהוא נמוך מאוד (אפסי/חד ספרתי/עשרות בודדות). אם יש עשרות רבות – לשאול למה ולדרוש תיעוד" },</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">     </span>{ text: "אחריות ותיעוד", subs: ["לוודא שאתה מקבל הסבר כתוב על תנאי האחריות הכללית לרכב (בד\"כ 4 שנים או 80,000 ק\"מ, לפי המוקדם)", "אחריות סוללה ומערכת הנעה: לוודא משך שנים ומספר ק\"מ (בד\"כ 8 שנים ומעל 160 אלף ק\"מ)", "לשאול איך פונים לשירות במקרה תקלה ואיפה נמצא השירות הקרוב"] }</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>]</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>},</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>{</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>title: "בדיקה חיצונית – מרכב, צבע, זכוכיות וגומי",</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>items: [</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">     </span>{ text: "סיבוב מלא סביב הרכב", subs: ["מכסה מנוע: אין שריטות, מכות, שקעים קטנים, 'גלים' בפח", "כנפיים: אין סימני פגיעה או תיקון לא אחיד", "דלתות: בדיקת כל הדלתות משני הצדדים", "פגושים קדמי ואחורי: אין פגיעות, חיבור אחיד לפח", "גג: אחיד, ללא שריטות או שקעים", "מכסה תא מטען: פח אחיד, ללא עקמומיות"] },</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">     </span>{ text: "איכות הצבע", subs: ["לחפש הבדלי גוון בין חלקים סמוכים (למשל פגוש אחורי לעומת כנף)", "לבדוק שאין 'נזילות לכה', כתמים עכורים, אזורי 'קליפת תפוז' חריגים או פסי שיוף", "לבדוק אזורים נמוכים: תחתית דלתות, סף דלת, סביב הגלגלים"] },</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">     </span>{ text: "מרווחים ויישור פאנלים", subs: ["לבדוק מרווחים בין מכסה מנוע לכנפיים משני הצדדים – שהרווח בערך אחיד", "לבדוק מרווחים בין דלת קדמית לאחורית ובין הדלתות לפגוש/כנף", "לעמוד מאחור ולהסתכל על קו הפגוש ביחס לפנסים ולתא המטען"] },</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">     </span>{ text: "שמשות וגג זכוכית", subs: ["שמשה קדמית: שאין סדקים, שבבים מאבנים או שריטות עמוקות", "חלונות צד: אין שברים, אין קילוף ציפוי, כולל החלקים ליד המראות", "חלון אחורי: זכוכית אחידה, ללא סדק; קווי החימום האחורי שלמים", "גג זכוכית: בדוק חיבור לפח ואין 'פיצוצים' קטנים בזכוכית"] },</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">     </span>{ text: "גומי ואיטומים: לבדוק את הגומי מסביב לדלתות, חלונות, פרונק ותא מטען – שלא קרוע, לא 'נלעס', לא משוך/מעוות, צמוד לכל אורכו" },</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">     </span>{ text: "לוחיות רישוי ותושבות: לוודא שהלוחית מותקנת ישר, לא חורקת, ושלא קדחו חורים מיותרים בפגוש" }</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>]</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>},</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>{</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>title: "פנסים, אורות ומראות",</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>items: [</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">     </span>{ text: "פנסים קדמיים", subs: ["לבדוק שהפנס לא סדוק, לא שבור, לא 'מעונן' לגמרי", "לבדוק אם יש מים או עיבוי כבד מבפנים (עננות עדינה בקור יכולה להיות נורמלית)"] },</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">     </span>{ text: "פנסים אחוריים", subs: ["אין סדקים, אין מים בפנים, הפלסטיק אחיד בגוון", "חיבור לפח – לא רופף, לא בולט מצד אחד"] },</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">     </span>{ text: "בדיקת כל אורות החוץ", subs: ["אורות דרך וגבוה: להדליק ולוודא ששני הצדדים דולקים בעוצמה דומה", "איתותים קדימה/אחורה ובמראות – כולם עובדים בקצב אחיד", "אורות בלימה: לבקש ממישהו ללחוץ ברקס בזמן שאתה עומד מאחור", "אורות רוורס ואורות ערפל (אם קיימים) – לבדוק הפעלה"] },</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">     </span>{ text: "מראות", subs: ["מראות צד – כיוונון חשמלי לכל הכיוונים תקין; המראה מתקפלת ונפתחת אוטומטית", "מראה פנימית – נקייה, לא שרוטה ולא כהה באופן לא אחיד"] }</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>]</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>},</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>{</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>title: "גלגלים, צמיגים ומתלים",</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>items: [</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">     </span>{ text: "חישוקים", subs: ["לבדוק כל גלגל מסביב – אין שפשוף משמעותי משפת מדרכה, אין מכות עמוקות או סדקים", "לוודא שכל המכסים הדקורטיביים (Aero) קיימים ויושבים טוב"] },</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">     </span>{ text: "צמיגים", subs: ["לבדוק מידת צמיג מול מה שמופיע ברישיון/מפרט", "לוודא שכל ארבעת הצמיגים מאותו סוג ויצרן (או לפחות זוגות תואמים)", "לבדוק עומק חריצים – שלא שחוקים עד כמעט חלק", "לבדוק דופן הצמיג – אין קרעים, 'בועות' או סימני פגיעה"] },</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">     </span>{ text: "מתלים ובלמים (בבדיקה סטטית): ללחוץ על הכנף – הרכב אמור לרדת ולעלות חלק, בלי 'קפיצות' קשוחות או רעשים" }</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>]</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>},</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>{</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>title: "פרונק ותא מטען אחורי",</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>items: [</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">     </span>{ text: "פרונק – פתיחה וסגירה", subs: ["לפתוח מהמסך ומהאפליקציה – נפתח עד למעלה ללא רעשי חריקה", "בסגירה – נסגר בלי מכה חזקה ובלי 'קפיצה' חזרה"] },</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">     </span>{ text: "תא מטען אחורי", subs: ["לבדוק פתיחה וסגירה מהכפתור, מהמסך ומהאפליקציה", "לוודא שנעצר אם יש התנגדות ושלא מתחכך בגג או בפנסים"] },</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">     </span>{ text: "פנים התאים", subs: ["שטיח הפרונק קיים, נקי ומונח טוב", "בתא מטען – שטיח, מכסה החלל התחתון וכל הפלסטיקים הפנימיים שלמים"] },</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">     </span>{ text: "איטומים: גומי סביב הפרונק ותא המטען שלם, צמוד לכל ההיקף. לחפש סימני מים/לחות פנימית (כתמי מים על שטיח)" }</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>]</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>},</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>{</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>title: "תא נוסעים – מושבים, דיפונים ותקרה",</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>items: [</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">     </span>{ text: "מושבים", subs: ["לבדוק כל מושב (נהג, נוסע קדמי, אחוריים) – אין קרעים, כתמים, קילופים או קמטים חריגים", "לבדוק את כל כיווני מושב הנהג: קדימה/אחורה, למעלה/למטה, משענת, תמיכה מותנית", "לבדוק קריאת זיכרון מושבים – שמירת פרופיל והחזרה למיקום נשמר"] },</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">     </span>{ text: "חימום (וקירור אם קיים): להדליק חימום מושבים לכל מושב שיש לו כפתור ולוודא שבכל מצב מדורג מרגישים שינוי חום" },</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">     </span>{ text: "דיפוני דלתות ודשבורד", subs: ["לעבור עם העין והיד על הדיפונים – אין שריטות עמוקות, ניפוחים, שקעים", "לבדוק חיבור הדיפון לפח: שאין רווחים גדולים, שאין חלק 'שקוע' או בולט", "דשבורד ומסגרת המסך – נקיים, בלי סימני הדבקה/שאריות מדבקות"] },</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">     </span>{ text: "ריפוד וגג", subs: ["לבדוק ריפוד התקרה על כל שטחו – אין כתמי מים, כתמי שומן, קרעים או 'גלים' משוחררים", "לבדוק אזור החיבור לגג הזכוכית – שאין סימני רטיבות/עובש"] }</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>]</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>},</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>{</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>title: "דלתות, ידיות, חלונות ותאי אחסון",</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>items: [</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">     </span>{ text: "דלתות וידיות", subs: ["לפתוח ולסגור כל דלת מספר פעמים – נפתחות בקלות ולא נתקעות", "ידיות חיצוניות של Model 3 צריכות לצאת ולהיכנס חלק, בלי להישאר 'חצי פתוחות'", "לדעת איפה מנגנון החירום (ידני) לפתיחה במקרה שאין חשמל"] },</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">     </span>{ text: "חלונות", subs: ["להעלות ולהוריד כל חלון עד הסוף מספר פעמים", "לבדוק שאין רעש חריקה ושהחלון לא נוטה תוך כדי תנועה", "לבדוק מנגנון אנטי‑צביטה בזהירות – החלון אמור לחזור מעט ולא להמשיך לסגור בכוח"] },</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">     </span>{ text: "תאי אחסון", subs: ["קונסולה מרכזית: לפתוח המכסים, לוודא שזזים חלק ונסגרים ישר", "תא כפפות: לפתוח מהמסך, לוודא נפתח חלק ונסגר היטב; יש תאורה פנימית", "משענת יד: לבדוק שהיא יציבה ולא 'משחקת' מצד לצד"] }</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>]</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>},</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>{</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>title: "מסך, מערכת מידע ובקרות",</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>items: [</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">     </span>{ text: "מסך מרכזי", subs: ["לבדוק שהמסך נקי משריטות עמוקות, שאין פיקסלים מתים או אזורים כהים", "לבדוק תגובת מגע: לעבור עם האצבע על אזורים שונים ולראות שהתגובות מיידיות"] },</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">     </span>{ text: "מערכת ותפריטים", subs: ["לוודא ששפת המערכת והיחידות (ק\"מ, צלזיוס) מוגדרות כראוי ושניתן לשנותן", "לבדוק שהגישה לכל תפריטי הרכב (בקרת נהיגה, בטיחות, מיזוג, תאורה, נעילה) עובדת ללא תקיעות"] },</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">     </span>{ text: "ניווט וקישוריות", subs: ["לפתוח מפות וניווט, להגדיר יעד, לוודא שהמיקום שלך על המפה מדויק", "לנסות לחבר לרשת Wi‑Fi ולראות שהחיבור מצליח", "להתחבר בבלוטות' לטלפון, לבצע שיחת ניסיון ולשמוע בדיבורית"] },</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">     </span>{ text: "מערכת שמע", subs: ["לנגן מקור שמע ולעשות סיבוב ברכב כדי לשמוע שכל הרמקולים עובדים", "לשחק עם Balance/Fade לוודא שאין רמקול 'מת'", "להאזין לרעשי זמזום או עיוות חזק בווליום בינוני‑גבוה"] }</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>]</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>},</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>{</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>title: "מיזוג, חימום ואוורור",</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>items: [</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">     </span>{ text: "בדיקת מיזוג", subs: ["להפעיל מיזוג על טמפרטורה נמוכה ולוודא שאחרי כמה דקות יוצא אוויר קר בצורה ברורה", "לבדוק שאין ריחות חריפים/עובש שיוצאים מהפתח"] },</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">     </span>{ text: "בדיקת חימום", subs: ["להעלות טמפרטורה ולוודא שיוצא אוויר חם", "לבדוק במיוחד דרך פתחי השמשה (Defrost) ורגליים"] },</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">     </span>{ text: "שליטה בזרימת אוויר", subs: ["דרך המסך – להזיז את נקודת יציאת הזרם ולבדוק שהכיוון משתנה בפועל", "לבדוק שליטה במהירות המאוורר"] },</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">     </span>{ text: "השמשה הקדמית: להפעיל מצב Defog/Defrost ולראות שהאדים נעלמים במהירות סבירה" }</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>]</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>},</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>{</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>title: "טעינה, שקעי USB, טעינה אלחוטית ו‑12V",</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>items: [</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">     </span>{ text: "דלת שקע הטעינה", subs: ["לפתוח באמצעות המסך, האפליקציה ובלחיצה על הדלת", "לוודא שהדלת נפתחת עד הסוף ולא נתקעת", "לוודא שנסגרת ישר ויושבת יפה עם הפנס האחורי"] },</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">     </span>{ text: "בדיקת טעינה בפועל (אם ניתן)", subs: ["לחבר כבל Type 2 בעמדת טעינה", "לבדוק שהנעילה מתבצעת ('קליק') ושהנורה מציגה מצב תקין", "על המסך לוודא שמוצג קצב טעינה ושאין התראה על שגיאה"] },</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">     </span>{ text: "ציוד טעינה", subs: ["לבדוק שקיבלת את הכבלים/מתאמים שמגיעים בדגם/בחבילה שלך", "לוודא שהכבלים לא סדוקים והמחברים שלמים", "לבדוק אם קיים תיק נשיאה לכבל"] },</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">     </span>{ text: "שקעי USB‑C: לבדוק כל שקע קדמי ואחורי בעזרת כבל וטלפון – שהטלפון נטען. לוודא שאין שקע רופף" },</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">     </span>{ text: "משטח טעינה אלחוטית", subs: ["להניח טלפון התומך בטעינה אלחוטית ולוודא שמתחיל להיטען", "לבדוק את שני הצדדים אם יש שניים"] },</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">     </span>{ text: "שקע 12V (אם קיים): לבדוק בעזרת מטען מצית קטן אם יש מתח בתקע" }</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>]</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>},</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>{</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>title: "מצלמות, חיישנים ומערכות בטיחות",</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>items: [</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">     </span>{ text: "מצלמות", subs: ["להפעיל מצלמה אחורית דרך הרוורס ולראות שהתמונה חדה, ללא פסים או קפיצות", "לבדוק מצבי צפייה במצלמות צד/קדמי ולוודא שאין כתמים כהים"] },</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">     </span>{ text: "חיישני חניה (אם קיימים): לנסוע לאט סמוך לקיר/רכב אחר ולראות שהמערכת מציגה מרחק ו/או מצפצפת בכל הצדדים" },</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">     </span>{ text: "מערכות עזר לנהיגה", subs: ["בנסיעת מבחן – להפעיל בקרת שיוט אדפטיבית ולוודא שהרכב משמר מרחק מהרכב קדימה", "לבחון שהרכב מאט ומאיץ בצורה חלקה כאשר הרכב מלפנים משנה מהירות", "לוודא ששמירה אקטיבית על נתיב מזהה נתיבים ולא מציגה הודעות שגיאה"] },</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">     </span>{ text: "נורות אזהרה והודעות שגיאה", subs: ["לוודא שאין נורות אזהרה קבועות: בלמים, ABS, כריות אוויר, מערכות בטיחות, סוללה, טעינה", "לעבור על תפריט ההתראות במסך ולראות שאין הודעות תקלה פעילות"] }</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>]</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>},</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>{</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>title: "מפתחות, כרטיסים ואפליקציה",</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>items: [</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">     </span>{ text: "כרטיסי מפתח", subs: ["לקבל שני כרטיסי מפתח", "לצמד לרכב ולבדוק שכל אחד פותח ונועל את הרכב בהצמדה לעמוד B", "לוודא שניתן להניע את הרכב כאשר הכרטיס נמצא בפנים"] },</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">     </span>{ text: "אפליקציית Tesla", subs: ["לוודא שהרכב מופיע באפליקציה עם מספר ה‑VIN הנכון", "לבצע פתיחה/נעילה דרך האפליקציה ולראות שהרכב מגיב תוך כמה שניות", "להפעיל מיזוג מרחוק, להדליק אורות או צופר לבדיקה שהפקודות עובדות"] },</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">     </span>{ text: "Phone Key", subs: ["להגדיר את הטלפון שלך כמפתח (Phone Key)", "לבדוק שהרכב נפתח כשאתה מתקרב (עם טלפון בכיס)", "לבדוק שנסגר אוטומטית כשאתה מתרחק, במידת האפשר"] }</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>]</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>},</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>{</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>title: "נסיעת מבחן לפני סיום",</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>items: [</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">     </span>{ text: "יציאה לנסיעה", subs: ["לוודא שהמושב וההגה מכוונים בצורה נוחה ושכל המראות מכוונות היטב", "לבדוק תצוגה על המסך (מהירות, נתיב, רכבים סביב) בזמן נהיגה"] },</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">     </span>{ text: "תאוצה ובלימה", subs: ["לבצע תאוצה מתונה עד מהירות עירונית ולוודא שהאצה חלקה, ללא קפיצות/השהיות", "לבלום מספר פעמים בעוצמה בינונית – הרכב צריך לשמור קו ישר ולא למשוך ימינה/שמאלה"] },</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">     </span>{ text: "היגוי והתנהגות כביש", subs: ["לשחרר בעדינות את ההגה ולראות שהרכב לא מושך לצד בצורה ברורה", "לתמרן בסיבובים איטיים ולהקשיב אם יש נקישות/חריקות מהחזית או מהאחוריים"] },</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">     </span>{ text: "רעשים", subs: ["לשים לב לרעשי רוח סביב מראות/דלתות במהירות בינונית – שריקה חזקה יכולה לרמז על איטום לא טוב", "להקשיב לרעשי פלסטיק או חריקות מהפנים על כביש משובש"] }</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>]</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>},</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>{</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>title: "אביזרים וציוד נלווה",</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>items: [</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">     </span>{ text: "אביזרי חובה/סטנדרט", subs: ["שטיחוני רצפה לכל המושבים", "משולש אזהרה/ערכת עזרה ראשונה אם מסופקים ע\"י היבואן", "כבל טעינה ו/או מתאמים, לפי התצורה שסוכמה בחוזה"] },</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">     </span>{ text: "מדריכים ותיעוד", subs: ["לוודא שאתה יודע איפה ספר הרכב הדיגיטלי במסך ואיך ניגשים להוראות תפעול", "לבקש הסבר קצר מהנציג על הפעלת עזרי הנהיגה, מצב חניה, טעינה ואפליקציה"] }</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>]</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>},</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>// ── English Day 1 Settings ─────────────────────────────────────────</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>{</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>title: "Driver Profile, Seating &amp; Mirrors",</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>english: true,</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>items: [</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">     </span>{ text: "Create a Driver Profile and save:", subs: ["Seat position (forward/back, height, tilt, lumbar)", "Steering wheel position (up/down, in/out)", "Left and right mirror positions"] },</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">     </span>{ text: "Turn on ‘Easy Entry’ (if available) so the seat/wheel move back for easier entry/exit" },</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">     </span>{ text: "Enable mirror auto‑fold at home / tight parking locations" },</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">     </span>{ text: "Enable mirror tilt in reverse so you can see the curb when backing up" }</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>]</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>},</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>{</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>title: "Driving Behavior &amp; Feel",</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>english: true,</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>items: [</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">     </span>{ text: "Acceleration mode:", subs: ["Start with ‘Chill’ mode until you get used to the power", "Later switch to ‘Standard/Sport’ if you prefer stronger acceleration"] },</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">     </span>{ text: "Steering mode: Choose ‘Comfort’ (light), ‘Standard’ (balanced), or ‘Sport’ (heavier) based on your taste" },</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">     </span>{ text: "Regenerative braking: Set regen to the strongest available setting for one‑pedal driving" },</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">     </span>{ text: "Stopping mode: Choose ‘Hold’ so the car comes to a complete stop and stays there without keeping your foot on the brake" }</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>]</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>},</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>{</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>title: "Safety &amp; Driver Assistance",</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>english: true,</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>items: [</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">     </span>{ text: "Confirm these are ON:", subs: ["Automatic Emergency Braking", "Forward Collision Warning (choose timing: Early / Medium / Late)", "Lane Departure Avoidance / Lane Assist"] },</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">     </span>{ text: "Enable Blind Spot Camera (shows side camera when you use the turn signal)" },</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">     </span>{ text: "Turn on Speed Assist: Use speed limit data and set a small offset (e.g. +5–10 km/h or mph)" },</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">     </span>{ text: "Turn on ‘Joe Mode’ (quieter alerts) if you drive with sleeping passengers" }</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>]</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>},</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>{</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>title: "Autopilot, Cruise Control &amp; Lane Assist",</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>english: true,</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>items: [</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">     </span>{ text: "Turn on Traffic‑Aware Cruise Control (TACC) or Autopilot where available" },</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">     </span>{ text: "Set your preferred following distance" },</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">     </span>{ text: "Check lane‑keeping / Autosteer:", subs: ["Only use on suitable roads", "Make sure hands are always on the wheel and you're fully attentive"] }</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>]</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>},</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>{</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>title: "Charging &amp; Battery Care",</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>english: true,</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>items: [</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">     </span>{ text: "Set daily charge limit to about 70–80% for normal use" },</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">     </span>{ text: "Only set 90–100% charge when you need a long trip (and drive soon after it finishes)" },</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">     </span>{ text: "At home, set Scheduled Charging or Scheduled Departure:", subs: ["Finish charging before your usual departure time", "Use off‑peak electricity if you have cheaper night rates"] }</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>]</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>},</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>{</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>title: "Sentry Mode &amp; Dashcam",</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>english: true,</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>items: [</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">     </span>{ text: "Insert a USB drive/SSD and format it in the car for Dashcam/Sentry storage" },</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">     </span>{ text: "Turn on Dashcam: Enable automatic recording of events (e.g., honk or incidents)" },</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">     </span>{ text: "Turn on Sentry Mode by default if you want continuous protection when parked" },</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">     </span>{ text: "Set exclusions (e.g., disable Sentry at Home or Work so it doesn't run all night there)" }</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>]</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>},</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>{</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>title: "Climate Control &amp; Comfort",</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>english: true,</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>items: [</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">     </span>{ text: "Set climate to ‘Auto’ and choose a comfortable temperature" },</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">     </span>{ text: "Turn on Cabin Overheat Protection (Fan only or A/C), especially in hot climates" },</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">     </span>{ text: "Enable automatic seat and steering‑wheel heating with climate (if available), to save energy vs. high fan heat" },</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">     </span>{ text: "Check defrost/defog buttons for front and rear windows" }</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>]</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>},</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>{</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>title: "Display, Theme &amp; Controls",</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>english: true,</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>items: [</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">     </span>{ text: "Set screen brightness to ‘Auto’" },</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">     </span>{ text: "Enable Auto day/night theme (switch to dark mode at night)" },</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">     </span>{ text: "Customize the bottom bar / dock:", subs: ["Add shortcuts you use often (e.g., Camera, Phone, Wipers, Defrost, Charger)"] }</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>]</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>},</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>{</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>title: "Locks, Keys &amp; Security",</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>english: true,</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>items: [</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">     </span>{ text: "Pair your phone as a key and test:", subs: ["Car unlocks when you approach", "Car locks when you walk away"] },</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">     </span>{ text: "Enable ‘Walk‑Away Door Lock’" },</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">     </span>{ text: "Decide if you want ‘Driver Door Unlock Mode’ (only driver door unlocks first)" },</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">     </span>{ text: "Store physical key cards in safe but accessible places (wallet, bag)" }</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>]</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>},</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>{</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>title: "Navigation &amp; Trip Planning",</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>english: true,</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>items: [</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">     </span>{ text: "Set Home and Work addresses" },</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">     </span>{ text: "Check navigation settings:", subs: ["Avoid tolls/ferries/U‑turns if needed", "Adjust voice guidance volume"] },</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">     </span>{ text: "Enable showing Superchargers and other fast chargers on the map" }</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>]</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>},</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>{</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>title: "Software Updates &amp; Notifications",</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>english: true,</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>items: [</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">     </span>{ text: "Choose update preference:", subs: ["'Standard' for normal cadence", "'Advanced' if you want new features sooner"] },</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">     </span>{ text: "In the Tesla app, enable notifications for:", subs: ["Charging started/completed", "Sentry Mode events", "Software updates available"] }</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>]</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>}</span></p>
-<p class="p1"><span class="s1">];</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1">const STORAGE_KEY = 'tesla_checklist_v3';</span></p>
-<p class="p1"><span class="s1">let state = {};</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1">function loadState() {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>try { const s = localStorage.getItem(STORAGE_KEY); if (s) state = JSON.parse(s); } catch(e) {}</span></p>
-<p class="p1"><span class="s1">}</span></p>
-<p class="p1"><span class="s1">function saveState() {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch(e) {}</span></p>
-<p class="p1"><span class="s1">}</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1">function getSectionKeys(si) {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>const keys = [];</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>SECTIONS[si].items.forEach((item, ii) =&gt; {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>if (item.subs &amp;&amp; item.subs.length) {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">     </span>item.subs.forEach((_, subi) =&gt; keys.push(`${si}_${ii}_${subi}`));</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>} else {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">     </span>keys.push(`${si}_${ii}`);</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>}</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>});</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>return keys;</span></p>
-<p class="p1"><span class="s1">}</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1">function getTotalItems() {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>let n = 0;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>SECTIONS.forEach((_, si) =&gt; { n += getSectionKeys(si).length; });</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>return n;</span></p>
-<p class="p1"><span class="s1">}</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1">function getCheckedCount() {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>return Object.values(state).filter(Boolean).length;</span></p>
-<p class="p1"><span class="s1">}</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1">function updateProgress() {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>const total = getTotalItems();</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>const checked = getCheckedCount();</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>const pct = total &gt; 0 ? Math.round((checked / total) * 100) : 0;</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>document.getElementById('progressBar').style.strokeDashoffset = 163 - (pct / 100) * 163;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>document.getElementById('progressText').innerHTML = `${pct}%&lt;span&gt;הושלם&lt;/span&gt;`;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>document.getElementById('statsRow').innerHTML = `</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>&lt;div class="stat-pill"&gt;&lt;strong class="done"&gt;${checked}&lt;/strong&gt;/${total}&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>&lt;div class="stat-pill"&gt;&lt;strong&gt;${total - checked}&lt;/strong&gt; נותרו&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>`;</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>if (checked === total &amp;&amp; total &gt; 0) document.getElementById('celebration').classList.add('show');</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>else document.getElementById('celebration').classList.remove('show');</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>SECTIONS.forEach((s, si) =&gt; {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>const keys = getSectionKeys(si);</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>const sChecked = keys.filter(k =&gt; state[k]).length;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>const sTotal = keys.length;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>const fill = document.getElementById(`fill_${si}`);</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>const count = document.getElementById(`count_${si}`);</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>const sec = document.getElementById(`section_${si}`);</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>if (fill) fill.style.width = (sTotal &gt; 0 ? sChecked / sTotal * 100 : 0) + '%';</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>if (count) count.innerHTML = `&lt;span class="done"&gt;${sChecked}&lt;/span&gt;/${sTotal}`;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>if (sec) {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">     </span>if (sChecked === sTotal &amp;&amp; sTotal &gt; 0) sec.classList.add('complete');</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">     </span>else sec.classList.remove('complete');</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>}</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>});</span></p>
-<p class="p1"><span class="s1">}</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1">function toggleItem(si, ii, event) {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>event.stopPropagation();</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>const key = `${si}_${ii}`;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>state[key] = !state[key];</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>saveState();</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>const el = document.getElementById(`item_${si}_${ii}`);</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>if (el) { if (state[key]) el.classList.add('checked'); else el.classList.remove('checked'); }</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>updateProgress();</span></p>
-<p class="p1"><span class="s1">}</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1">function toggleSub(si, ii, subi, event) {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>event.stopPropagation();</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>const key = `${si}_${ii}_${subi}`;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>state[key] = !state[key];</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>saveState();</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>const el = document.getElementById(`sub_${si}_${ii}_${subi}`);</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>if (el) { if (state[key]) el.classList.add('checked'); else el.classList.remove('checked'); }</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>updateProgress();</span></p>
-<p class="p1"><span class="s1">}</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1">function toggleSection(si) {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>const el = document.getElementById(`section_${si}`);</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>if (el) el.classList.toggle('collapsed');</span></p>
-<p class="p1"><span class="s1">}</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1">function resetAll() {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>if (!confirm('לאפס את כל הסימונים?')) return;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>state = {};</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>saveState();</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>document.querySelectorAll('.<a href="http://item.no/"><span class="s4">item.no</span></a>-subs').forEach(el =&gt; el.classList.remove('checked'));</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>document.querySelectorAll('.sub-item').forEach(el =&gt; el.classList.remove('checked'));</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>updateProgress();</span></p>
-<p class="p1"><span class="s1">}</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1">// Index of first English section</span></p>
-<p class="p1"><span class="s1">const FIRST_EN = SECTIONS.findIndex(s =&gt; s.english);</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1">function render() {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>const container = document.getElementById('checklistContainer');</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>container.innerHTML = '';</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>// Hebrew group label</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>const heLabel = document.createElement('div');</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>heLabel.className = 'section-group-label';</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>heLabel.textContent = '🔍 בדיקת מסירה';</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>container.appendChild(heLabel);</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>SECTIONS.forEach((section, si) =&gt; {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>// English group label before first English section</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>if (si === FIRST_EN) {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">     </span>const enLabel = document.createElement('div');</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">     </span>enLabel.className = 'section-group-label en';</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">     </span>enLabel.textContent = '⚙️ Day 1 Settings';</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">     </span>container.appendChild(enLabel);</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>}</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>const keys = getSectionKeys(si);</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>const sChecked = keys.filter(k =&gt; state[k]).length;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>const sTotal = keys.length;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>const pctS = sTotal &gt; 0 ? sChecked / sTotal * 100 : 0;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>const isEn = !!section.english;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>const isComplete = sChecked === sTotal &amp;&amp; sTotal &gt; 0;</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>const sectionDiv = document.createElement('div');</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>sectionDiv.className = 'section' + (isEn ? ' english' : '') + (isComplete ? ' complete' : '');</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span><a href="http://sectiondiv.id/"><span class="s4">sectionDiv.id</span></a> = `section_${si}`;</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>// Section label: use letter for English, number for Hebrew</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>const numLabel = isEn ? String.fromCharCode(65 + (si - FIRST_EN)) : String(si + 1);</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>const itemsHtml = section.items.map((item, ii) =&gt; {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">     </span>const hasSubs = item.subs &amp;&amp; item.subs.length &gt; 0;</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">     </span>if (hasSubs) {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">       </span>const subsHtml = item.subs.map((sub, subi) =&gt; {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">         </span>const key = `${si}_${ii}_${subi}`;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">         </span>const cls = state[key] ? 'checked' : '';</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">         </span>return `</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">           </span>&lt;div class="sub-item ${cls}" id="sub_${si}_${ii}_${subi}" onclick="toggleSub(${si},${ii},${subi},event)"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">             </span>&lt;div class="sub-checkbox"&gt;&lt;span class="sub-checkmark"&gt;✓&lt;/span&gt;&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">             </span>&lt;div class="sub-text"&gt;${sub}&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">           </span>&lt;/div&gt;`;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">       </span>}).join('');</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">       </span>return `</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">         </span>&lt;div class="item has-subs"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">           </span>&lt;div class="item-label"&gt;${item.text}&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">           </span>&lt;div class="sub-list"&gt;${subsHtml}&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">         </span>&lt;/div&gt;`;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">     </span>} else {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">       </span>const key = `${si}_${ii}`;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">       </span>const cls = state[key] ? 'checked' : '';</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">       </span>return `</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">         </span>&lt;div class="item no-subs ${cls}" id="item_${si}_${ii}" onclick="toggleItem(${si},${ii},event)"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">           </span>&lt;div class="checkbox"&gt;&lt;span class="checkmark"&gt;✓&lt;/span&gt;&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">           </span>&lt;div class="item-text"&gt;${item.text}&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">         </span>&lt;/div&gt;`;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">     </span>}</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>}).join('');</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>sectionDiv.innerHTML = `</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">     </span>&lt;div class="section-header" onclick="toggleSection(${si})"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">       </span>&lt;div class="section-num"&gt;${numLabel}&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">       </span>&lt;div class="section-title"&gt;${section.title}&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">       </span>&lt;div class="section-meta"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">         </span>&lt;div class="mini-bar"&gt;&lt;div class="mini-bar-fill" id="fill_${si}" style="width:${pctS}%"&gt;&lt;/div&gt;&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">         </span>&lt;div class="section-count" id="count_${si}"&gt;&lt;span class="done"&gt;${sChecked}&lt;/span&gt;/${sTotal}&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">       </span>&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">       </span>&lt;div class="chevron"&gt;▲&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">     </span>&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">     </span>&lt;div class="section-body"&gt;${itemsHtml}&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>`;</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>container.appendChild(sectionDiv);</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>});</span></p>
-<p class="p1"><span class="s1">}</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1">loadState();</span></p>
-<p class="p1"><span class="s1">render();</span></p>
-<p class="p1"><span class="s1">updateProgress();</span></p>
-<p class="p1"><span class="s1">&lt;/script&gt;</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1">&lt;/body&gt;</span></p>
-<p class="p1"><span class="s1">&lt;/html&gt;</span></p>
+
+<header>
+  <div class="header-inner">
+    <div class="logo-area">
+      <h1>🚗 צ'קליסט מסירת Model 3</h1>
+      <p>Tesla Highland — בדיקה לפני חתימה + הגדרות יום 1</p>
+    </div>
+    <div class="progress-area">
+      <div>
+        <div class="stats-row" id="statsRow"></div>
+      </div>
+      <div class="progress-ring-wrap">
+        <svg class="progress-ring" width="64" height="64" viewBox="0 0 64 64">
+          <circle class="progress-bg" cx="32" cy="32" r="26"/>
+          <circle class="progress-bar" id="progressBar" cx="32" cy="32" r="26"/>
+        </svg>
+        <div class="progress-text" id="progressText">0%<span>הושלם</span></div>
+      </div>
+      <button class="reset-btn" onclick="resetAll()">אפס הכל</button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div id="checklistContainer"></div>
+  <div class="celebration" id="celebration">
+    <div style="font-size:4rem; margin-bottom:1rem;">🎉</div>
+    <h2 style="background: linear-gradient(135deg, var(--check), #00ffcc); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;">הצ'קליסט הושלם!</h2>
+    <p>בדקת את כל הפריטים. נסיעה טובה! 🚗⚡</p>
+  </div>
+</main>
+
+<script>
+const SECTIONS = [
+  // ── Hebrew delivery checklist ──────────────────────────────────────
+  {
+    title: "מסמכים, רישוי ואחריות",
+    items: [
+      { text: "לוודא שהרכב שעומד מולך הוא בדיוק הדגם והגרסה שהזמנת", subs: ["סוג הנעה: RWD / Long Range / Performance", "שנת דגם ותצורת Highland (אם רלוונטי)", "צבע חוץ וצבע פנים כפי שמופיע בהזמנה", "גודל חישוקים (18\" / 19\" / 20\") והחישוק עצמו זהה לתמונות/מפרט באתר"] },
+      { text: "בדיקת מספר שלדה (VIN)", subs: ["להשוות בין מספר ה‑VIN שמופיע: על השמשה הקדמית, על מדבקת הדלת (עמוד B), במסך הרכב, בהזמנה, ברישיון הרכב ובמסמכי הביטוח", "לוודא שכל המספרים זהים אחד לאחד, ללא טעות ספרה"] },
+      { text: "רישיון רכב", subs: ["לוודא ששם הבעלים (או חברת הליסינג) נכון", "הדגם ברישיון תואם לדגם בפועל (טסלה מודל 3, הגרסה הנכונה)", "שנת ייצור ותאריך רישוי תואמים למה שסיכמתם", "סוג דלק/הנעה רשום כחשמלי, וקוד הדגם/הספק מתאימים למפרט הישראלי"] },
+      { text: "קילומטראז': להסתכל על נתון הק\"מ בלוח המחוונים ולהבטיח שהוא נמוך מאוד (אפסי/חד ספרתי/עשרות בודדות). אם יש עשרות רבות – לשאול למה ולדרוש תיעוד" },
+      { text: "אחריות ותיעוד", subs: ["לוודא שאתה מקבל הסבר כתוב על תנאי האחריות הכללית לרכב (בד\"כ 4 שנים או 80,000 ק\"מ, לפי המוקדם)", "אחריות סוללה ומערכת הנעה: לוודא משך שנים ומספר ק\"מ (בד\"כ 8 שנים ומעל 160 אלף ק\"מ)", "לשאול איך פונים לשירות במקרה תקלה ואיפה נמצא השירות הקרוב"] }
+    ]
+  },
+  {
+    title: "בדיקה חיצונית – מרכב, צבע, זכוכיות וגומי",
+    items: [
+      { text: "סיבוב מלא סביב הרכב", subs: ["מכסה מנוע: אין שריטות, מכות, שקעים קטנים, 'גלים' בפח", "כנפיים: אין סימני פגיעה או תיקון לא אחיד", "דלתות: בדיקת כל הדלתות משני הצדדים", "פגושים קדמי ואחורי: אין פגיעות, חיבור אחיד לפח", "גג: אחיד, ללא שריטות או שקעים", "מכסה תא מטען: פח אחיד, ללא עקמומיות"] },
+      { text: "איכות הצבע", subs: ["לחפש הבדלי גוון בין חלקים סמוכים (למשל פגוש אחורי לעומת כנף)", "לבדוק שאין 'נזילות לכה', כתמים עכורים, אזורי 'קליפת תפוז' חריגים או פסי שיוף", "לבדוק אזורים נמוכים: תחתית דלתות, סף דלת, סביב הגלגלים"] },
+      { text: "מרווחים ויישור פאנלים", subs: ["לבדוק מרווחים בין מכסה מנוע לכנפיים משני הצדדים – שהרווח בערך אחיד", "לבדוק מרווחים בין דלת קדמית לאחורית ובין הדלתות לפגוש/כנף", "לעמוד מאחור ולהסתכל על קו הפגוש ביחס לפנסים ולתא המטען"] },
+      { text: "שמשות וגג זכוכית", subs: ["שמשה קדמית: שאין סדקים, שבבים מאבנים או שריטות עמוקות", "חלונות צד: אין שברים, אין קילוף ציפוי, כולל החלקים ליד המראות", "חלון אחורי: זכוכית אחידה, ללא סדק; קווי החימום האחורי שלמים", "גג זכוכית: בדוק חיבור לפח ואין 'פיצוצים' קטנים בזכוכית"] },
+      { text: "גומי ואיטומים: לבדוק את הגומי מסביב לדלתות, חלונות, פרונק ותא מטען – שלא קרוע, לא 'נלעס', לא משוך/מעוות, צמוד לכל אורכו" },
+      { text: "לוחיות רישוי ותושבות: לוודא שהלוחית מותקנת ישר, לא חורקת, ושלא קדחו חורים מיותרים בפגוש" }
+    ]
+  },
+  {
+    title: "פנסים, אורות ומראות",
+    items: [
+      { text: "פנסים קדמיים", subs: ["לבדוק שהפנס לא סדוק, לא שבור, לא 'מעונן' לגמרי", "לבדוק אם יש מים או עיבוי כבד מבפנים (עננות עדינה בקור יכולה להיות נורמלית)"] },
+      { text: "פנסים אחוריים", subs: ["אין סדקים, אין מים בפנים, הפלסטיק אחיד בגוון", "חיבור לפח – לא רופף, לא בולט מצד אחד"] },
+      { text: "בדיקת כל אורות החוץ", subs: ["אורות דרך וגבוה: להדליק ולוודא ששני הצדדים דולקים בעוצמה דומה", "איתותים קדימה/אחורה ובמראות – כולם עובדים בקצב אחיד", "אורות בלימה: לבקש ממישהו ללחוץ ברקס בזמן שאתה עומד מאחור", "אורות רוורס ואורות ערפל (אם קיימים) – לבדוק הפעלה"] },
+      { text: "מראות", subs: ["מראות צד – כיוונון חשמלי לכל הכיוונים תקין; המראה מתקפלת ונפתחת אוטומטית", "מראה פנימית – נקייה, לא שרוטה ולא כהה באופן לא אחיד"] }
+    ]
+  },
+  {
+    title: "גלגלים, צמיגים ומתלים",
+    items: [
+      { text: "חישוקים", subs: ["לבדוק כל גלגל מסביב – אין שפשוף משמעותי משפת מדרכה, אין מכות עמוקות או סדקים", "לוודא שכל המכסים הדקורטיביים (Aero) קיימים ויושבים טוב"] },
+      { text: "צמיגים", subs: ["לבדוק מידת צמיג מול מה שמופיע ברישיון/מפרט", "לוודא שכל ארבעת הצמיגים מאותו סוג ויצרן (או לפחות זוגות תואמים)", "לבדוק עומק חריצים – שלא שחוקים עד כמעט חלק", "לבדוק דופן הצמיג – אין קרעים, 'בועות' או סימני פגיעה"] },
+      { text: "מתלים ובלמים (בבדיקה סטטית): ללחוץ על הכנף – הרכב אמור לרדת ולעלות חלק, בלי 'קפיצות' קשוחות או רעשים" }
+    ]
+  },
+  {
+    title: "פרונק ותא מטען אחורי",
+    items: [
+      { text: "פרונק – פתיחה וסגירה", subs: ["לפתוח מהמסך ומהאפליקציה – נפתח עד למעלה ללא רעשי חריקה", "בסגירה – נסגר בלי מכה חזקה ובלי 'קפיצה' חזרה"] },
+      { text: "תא מטען אחורי", subs: ["לבדוק פתיחה וסגירה מהכפתור, מהמסך ומהאפליקציה", "לוודא שנעצר אם יש התנגדות ושלא מתחכך בגג או בפנסים"] },
+      { text: "פנים התאים", subs: ["שטיח הפרונק קיים, נקי ומונח טוב", "בתא מטען – שטיח, מכסה החלל התחתון וכל הפלסטיקים הפנימיים שלמים"] },
+      { text: "איטומים: גומי סביב הפרונק ותא המטען שלם, צמוד לכל ההיקף. לחפש סימני מים/לחות פנימית (כתמי מים על שטיח)" }
+    ]
+  },
+  {
+    title: "תא נוסעים – מושבים, דיפונים ותקרה",
+    items: [
+      { text: "מושבים", subs: ["לבדוק כל מושב (נהג, נוסע קדמי, אחוריים) – אין קרעים, כתמים, קילופים או קמטים חריגים", "לבדוק את כל כיווני מושב הנהג: קדימה/אחורה, למעלה/למטה, משענת, תמיכה מותנית", "לבדוק קריאת זיכרון מושבים – שמירת פרופיל והחזרה למיקום נשמר"] },
+      { text: "חימום (וקירור אם קיים): להדליק חימום מושבים לכל מושב שיש לו כפתור ולוודא שבכל מצב מדורג מרגישים שינוי חום" },
+      { text: "דיפוני דלתות ודשבורד", subs: ["לעבור עם העין והיד על הדיפונים – אין שריטות עמוקות, ניפוחים, שקעים", "לבדוק חיבור הדיפון לפח: שאין רווחים גדולים, שאין חלק 'שקוע' או בולט", "דשבורד ומסגרת המסך – נקיים, בלי סימני הדבקה/שאריות מדבקות"] },
+      { text: "ריפוד וגג", subs: ["לבדוק ריפוד התקרה על כל שטחו – אין כתמי מים, כתמי שומן, קרעים או 'גלים' משוחררים", "לבדוק אזור החיבור לגג הזכוכית – שאין סימני רטיבות/עובש"] }
+    ]
+  },
+  {
+    title: "דלתות, ידיות, חלונות ותאי אחסון",
+    items: [
+      { text: "דלתות וידיות", subs: ["לפתוח ולסגור כל דלת מספר פעמים – נפתחות בקלות ולא נתקעות", "ידיות חיצוניות של Model 3 צריכות לצאת ולהיכנס חלק, בלי להישאר 'חצי פתוחות'", "לדעת איפה מנגנון החירום (ידני) לפתיחה במקרה שאין חשמל"] },
+      { text: "חלונות", subs: ["להעלות ולהוריד כל חלון עד הסוף מספר פעמים", "לבדוק שאין רעש חריקה ושהחלון לא נוטה תוך כדי תנועה", "לבדוק מנגנון אנטי‑צביטה בזהירות – החלון אמור לחזור מעט ולא להמשיך לסגור בכוח"] },
+      { text: "תאי אחסון", subs: ["קונסולה מרכזית: לפתוח המכסים, לוודא שזזים חלק ונסגרים ישר", "תא כפפות: לפתוח מהמסך, לוודא נפתח חלק ונסגר היטב; יש תאורה פנימית", "משענת יד: לבדוק שהיא יציבה ולא 'משחקת' מצד לצד"] }
+    ]
+  },
+  {
+    title: "מסך, מערכת מידע ובקרות",
+    items: [
+      { text: "מסך מרכזי", subs: ["לבדוק שהמסך נקי משריטות עמוקות, שאין פיקסלים מתים או אזורים כהים", "לבדוק תגובת מגע: לעבור עם האצבע על אזורים שונים ולראות שהתגובות מיידיות"] },
+      { text: "מערכת ותפריטים", subs: ["לוודא ששפת המערכת והיחידות (ק\"מ, צלזיוס) מוגדרות כראוי ושניתן לשנותן", "לבדוק שהגישה לכל תפריטי הרכב (בקרת נהיגה, בטיחות, מיזוג, תאורה, נעילה) עובדת ללא תקיעות"] },
+      { text: "ניווט וקישוריות", subs: ["לפתוח מפות וניווט, להגדיר יעד, לוודא שהמיקום שלך על המפה מדויק", "לנסות לחבר לרשת Wi‑Fi ולראות שהחיבור מצליח", "להתחבר בבלוטות' לטלפון, לבצע שיחת ניסיון ולשמוע בדיבורית"] },
+      { text: "מערכת שמע", subs: ["לנגן מקור שמע ולעשות סיבוב ברכב כדי לשמוע שכל הרמקולים עובדים", "לשחק עם Balance/Fade לוודא שאין רמקול 'מת'", "להאזין לרעשי זמזום או עיוות חזק בווליום בינוני‑גבוה"] }
+    ]
+  },
+  {
+    title: "מיזוג, חימום ואוורור",
+    items: [
+      { text: "בדיקת מיזוג", subs: ["להפעיל מיזוג על טמפרטורה נמוכה ולוודא שאחרי כמה דקות יוצא אוויר קר בצורה ברורה", "לבדוק שאין ריחות חריפים/עובש שיוצאים מהפתח"] },
+      { text: "בדיקת חימום", subs: ["להעלות טמפרטורה ולוודא שיוצא אוויר חם", "לבדוק במיוחד דרך פתחי השמשה (Defrost) ורגליים"] },
+      { text: "שליטה בזרימת אוויר", subs: ["דרך המסך – להזיז את נקודת יציאת הזרם ולבדוק שהכיוון משתנה בפועל", "לבדוק שליטה במהירות המאוורר"] },
+      { text: "השמשה הקדמית: להפעיל מצב Defog/Defrost ולראות שהאדים נעלמים במהירות סבירה" }
+    ]
+  },
+  {
+    title: "טעינה, שקעי USB, טעינה אלחוטית ו‑12V",
+    items: [
+      { text: "דלת שקע הטעינה", subs: ["לפתוח באמצעות המסך, האפליקציה ובלחיצה על הדלת", "לוודא שהדלת נפתחת עד הסוף ולא נתקעת", "לוודא שנסגרת ישר ויושבת יפה עם הפנס האחורי"] },
+      { text: "בדיקת טעינה בפועל (אם ניתן)", subs: ["לחבר כבל Type 2 בעמדת טעינה", "לבדוק שהנעילה מתבצעת ('קליק') ושהנורה מציגה מצב תקין", "על המסך לוודא שמוצג קצב טעינה ושאין התראה על שגיאה"] },
+      { text: "ציוד טעינה", subs: ["לבדוק שקיבלת את הכבלים/מתאמים שמגיעים בדגם/בחבילה שלך", "לוודא שהכבלים לא סדוקים והמחברים שלמים", "לבדוק אם קיים תיק נשיאה לכבל"] },
+      { text: "שקעי USB‑C: לבדוק כל שקע קדמי ואחורי בעזרת כבל וטלפון – שהטלפון נטען. לוודא שאין שקע רופף" },
+      { text: "משטח טעינה אלחוטית", subs: ["להניח טלפון התומך בטעינה אלחוטית ולוודא שמתחיל להיטען", "לבדוק את שני הצדדים אם יש שניים"] },
+      { text: "שקע 12V (אם קיים): לבדוק בעזרת מטען מצית קטן אם יש מתח בתקע" }
+    ]
+  },
+  {
+    title: "מצלמות, חיישנים ומערכות בטיחות",
+    items: [
+      { text: "מצלמות", subs: ["להפעיל מצלמה אחורית דרך הרוורס ולראות שהתמונה חדה, ללא פסים או קפיצות", "לבדוק מצבי צפייה במצלמות צד/קדמי ולוודא שאין כתמים כהים"] },
+      { text: "חיישני חניה (אם קיימים): לנסוע לאט סמוך לקיר/רכב אחר ולראות שהמערכת מציגה מרחק ו/או מצפצפת בכל הצדדים" },
+      { text: "מערכות עזר לנהיגה", subs: ["בנסיעת מבחן – להפעיל בקרת שיוט אדפטיבית ולוודא שהרכב משמר מרחק מהרכב קדימה", "לבחון שהרכב מאט ומאיץ בצורה חלקה כאשר הרכב מלפנים משנה מהירות", "לוודא ששמירה אקטיבית על נתיב מזהה נתיבים ולא מציגה הודעות שגיאה"] },
+      { text: "נורות אזהרה והודעות שגיאה", subs: ["לוודא שאין נורות אזהרה קבועות: בלמים, ABS, כריות אוויר, מערכות בטיחות, סוללה, טעינה", "לעבור על תפריט ההתראות במסך ולראות שאין הודעות תקלה פעילות"] }
+    ]
+  },
+  {
+    title: "מפתחות, כרטיסים ואפליקציה",
+    items: [
+      { text: "כרטיסי מפתח", subs: ["לקבל שני כרטיסי מפתח", "לצמד לרכב ולבדוק שכל אחד פותח ונועל את הרכב בהצמדה לעמוד B", "לוודא שניתן להניע את הרכב כאשר הכרטיס נמצא בפנים"] },
+      { text: "אפליקציית Tesla", subs: ["לוודא שהרכב מופיע באפליקציה עם מספר ה‑VIN הנכון", "לבצע פתיחה/נעילה דרך האפליקציה ולראות שהרכב מגיב תוך כמה שניות", "להפעיל מיזוג מרחוק, להדליק אורות או צופר לבדיקה שהפקודות עובדות"] },
+      { text: "Phone Key", subs: ["להגדיר את הטלפון שלך כמפתח (Phone Key)", "לבדוק שהרכב נפתח כשאתה מתקרב (עם טלפון בכיס)", "לבדוק שנסגר אוטומטית כשאתה מתרחק, במידת האפשר"] }
+    ]
+  },
+  {
+    title: "נסיעת מבחן לפני סיום",
+    items: [
+      { text: "יציאה לנסיעה", subs: ["לוודא שהמושב וההגה מכוונים בצורה נוחה ושכל המראות מכוונות היטב", "לבדוק תצוגה על המסך (מהירות, נתיב, רכבים סביב) בזמן נהיגה"] },
+      { text: "תאוצה ובלימה", subs: ["לבצע תאוצה מתונה עד מהירות עירונית ולוודא שהאצה חלקה, ללא קפיצות/השהיות", "לבלום מספר פעמים בעוצמה בינונית – הרכב צריך לשמור קו ישר ולא למשוך ימינה/שמאלה"] },
+      { text: "היגוי והתנהגות כביש", subs: ["לשחרר בעדינות את ההגה ולראות שהרכב לא מושך לצד בצורה ברורה", "לתמרן בסיבובים איטיים ולהקשיב אם יש נקישות/חריקות מהחזית או מהאחוריים"] },
+      { text: "רעשים", subs: ["לשים לב לרעשי רוח סביב מראות/דלתות במהירות בינונית – שריקה חזקה יכולה לרמז על איטום לא טוב", "להקשיב לרעשי פלסטיק או חריקות מהפנים על כביש משובש"] }
+    ]
+  },
+  {
+    title: "אביזרים וציוד נלווה",
+    items: [
+      { text: "אביזרי חובה/סטנדרט", subs: ["שטיחוני רצפה לכל המושבים", "משולש אזהרה/ערכת עזרה ראשונה אם מסופקים ע\"י היבואן", "כבל טעינה ו/או מתאמים, לפי התצורה שסוכמה בחוזה"] },
+      { text: "מדריכים ותיעוד", subs: ["לוודא שאתה יודע איפה ספר הרכב הדיגיטלי במסך ואיך ניגשים להוראות תפעול", "לבקש הסבר קצר מהנציג על הפעלת עזרי הנהיגה, מצב חניה, טעינה ואפליקציה"] }
+    ]
+  },
+
+  // ── English Day 1 Settings ─────────────────────────────────────────
+  {
+    title: "Driver Profile, Seating & Mirrors",
+    english: true,
+    items: [
+      { text: "Create a Driver Profile and save:", subs: ["Seat position (forward/back, height, tilt, lumbar)", "Steering wheel position (up/down, in/out)", "Left and right mirror positions"] },
+      { text: "Turn on ‘Easy Entry’ (if available) so the seat/wheel move back for easier entry/exit" },
+      { text: "Enable mirror auto‑fold at home / tight parking locations" },
+      { text: "Enable mirror tilt in reverse so you can see the curb when backing up" }
+    ]
+  },
+  {
+    title: "Driving Behavior & Feel",
+    english: true,
+    items: [
+      { text: "Acceleration mode:", subs: ["Start with ‘Chill’ mode until you get used to the power", "Later switch to ‘Standard/Sport’ if you prefer stronger acceleration"] },
+      { text: "Steering mode: Choose ‘Comfort’ (light), ‘Standard’ (balanced), or ‘Sport’ (heavier) based on your taste" },
+      { text: "Regenerative braking: Set regen to the strongest available setting for one‑pedal driving" },
+      { text: "Stopping mode: Choose ‘Hold’ so the car comes to a complete stop and stays there without keeping your foot on the brake" }
+    ]
+  },
+  {
+    title: "Safety & Driver Assistance",
+    english: true,
+    items: [
+      { text: "Confirm these are ON:", subs: ["Automatic Emergency Braking", "Forward Collision Warning (choose timing: Early / Medium / Late)", "Lane Departure Avoidance / Lane Assist"] },
+      { text: "Enable Blind Spot Camera (shows side camera when you use the turn signal)" },
+      { text: "Turn on Speed Assist: Use speed limit data and set a small offset (e.g. +5–10 km/h or mph)" },
+      { text: "Turn on ‘Joe Mode’ (quieter alerts) if you drive with sleeping passengers" }
+    ]
+  },
+  {
+    title: "Autopilot, Cruise Control & Lane Assist",
+    english: true,
+    items: [
+      { text: "Turn on Traffic‑Aware Cruise Control (TACC) or Autopilot where available" },
+      { text: "Set your preferred following distance" },
+      { text: "Check lane‑keeping / Autosteer:", subs: ["Only use on suitable roads", "Make sure hands are always on the wheel and you're fully attentive"] }
+    ]
+  },
+  {
+    title: "Charging & Battery Care",
+    english: true,
+    items: [
+      { text: "Set daily charge limit to about 70–80% for normal use" },
+      { text: "Only set 90–100% charge when you need a long trip (and drive soon after it finishes)" },
+      { text: "At home, set Scheduled Charging or Scheduled Departure:", subs: ["Finish charging before your usual departure time", "Use off‑peak electricity if you have cheaper night rates"] }
+    ]
+  },
+  {
+    title: "Sentry Mode & Dashcam",
+    english: true,
+    items: [
+      { text: "Insert a USB drive/SSD and format it in the car for Dashcam/Sentry storage" },
+      { text: "Turn on Dashcam: Enable automatic recording of events (e.g., honk or incidents)" },
+      { text: "Turn on Sentry Mode by default if you want continuous protection when parked" },
+      { text: "Set exclusions (e.g., disable Sentry at Home or Work so it doesn't run all night there)" }
+    ]
+  },
+  {
+    title: "Climate Control & Comfort",
+    english: true,
+    items: [
+      { text: "Set climate to ‘Auto’ and choose a comfortable temperature" },
+      { text: "Turn on Cabin Overheat Protection (Fan only or A/C), especially in hot climates" },
+      { text: "Enable automatic seat and steering‑wheel heating with climate (if available), to save energy vs. high fan heat" },
+      { text: "Check defrost/defog buttons for front and rear windows" }
+    ]
+  },
+  {
+    title: "Display, Theme & Controls",
+    english: true,
+    items: [
+      { text: "Set screen brightness to ‘Auto’" },
+      { text: "Enable Auto day/night theme (switch to dark mode at night)" },
+      { text: "Customize the bottom bar / dock:", subs: ["Add shortcuts you use often (e.g., Camera, Phone, Wipers, Defrost, Charger)"] }
+    ]
+  },
+  {
+    title: "Locks, Keys & Security",
+    english: true,
+    items: [
+      { text: "Pair your phone as a key and test:", subs: ["Car unlocks when you approach", "Car locks when you walk away"] },
+      { text: "Enable ‘Walk‑Away Door Lock’" },
+      { text: "Decide if you want ‘Driver Door Unlock Mode’ (only driver door unlocks first)" },
+      { text: "Store physical key cards in safe but accessible places (wallet, bag)" }
+    ]
+  },
+  {
+    title: "Navigation & Trip Planning",
+    english: true,
+    items: [
+      { text: "Set Home and Work addresses" },
+      { text: "Check navigation settings:", subs: ["Avoid tolls/ferries/U‑turns if needed", "Adjust voice guidance volume"] },
+      { text: "Enable showing Superchargers and other fast chargers on the map" }
+    ]
+  },
+  {
+    title: "Software Updates & Notifications",
+    english: true,
+    items: [
+      { text: "Choose update preference:", subs: ["'Standard' for normal cadence", "'Advanced' if you want new features sooner"] },
+      { text: "In the Tesla app, enable notifications for:", subs: ["Charging started/completed", "Sentry Mode events", "Software updates available"] }
+    ]
+  }
+];
+
+const STORAGE_KEY = 'tesla_checklist_v3';
+let state = {};
+
+function loadState() {
+  try { const s = localStorage.getItem(STORAGE_KEY); if (s) state = JSON.parse(s); } catch(e) {}
+}
+function saveState() {
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch(e) {}
+}
+
+function getSectionKeys(si) {
+  const keys = [];
+  SECTIONS[si].items.forEach((item, ii) => {
+    if (item.subs && item.subs.length) {
+      item.subs.forEach((_, subi) => keys.push(`${si}_${ii}_${subi}`));
+    } else {
+      keys.push(`${si}_${ii}`);
+    }
+  });
+  return keys;
+}
+
+function getTotalItems() {
+  let n = 0;
+  SECTIONS.forEach((_, si) => { n += getSectionKeys(si).length; });
+  return n;
+}
+
+function getCheckedCount() {
+  return Object.values(state).filter(Boolean).length;
+}
+
+function updateProgress() {
+  const total = getTotalItems();
+  const checked = getCheckedCount();
+  const pct = total > 0 ? Math.round((checked / total) * 100) : 0;
+
+  document.getElementById('progressBar').style.strokeDashoffset = 163 - (pct / 100) * 163;
+  document.getElementById('progressText').innerHTML = `${pct}%<span>הושלם</span>`;
+  document.getElementById('statsRow').innerHTML = `
+    <div class="stat-pill"><strong class="done">${checked}</strong>/${total}</div>
+    <div class="stat-pill"><strong>${total - checked}</strong> נותרו</div>
+  `;
+
+  if (checked === total && total > 0) document.getElementById('celebration').classList.add('show');
+  else document.getElementById('celebration').classList.remove('show');
+
+  SECTIONS.forEach((s, si) => {
+    const keys = getSectionKeys(si);
+    const sChecked = keys.filter(k => state[k]).length;
+    const sTotal = keys.length;
+    const fill = document.getElementById(`fill_${si}`);
+    const count = document.getElementById(`count_${si}`);
+    const sec = document.getElementById(`section_${si}`);
+    if (fill) fill.style.width = (sTotal > 0 ? sChecked / sTotal * 100 : 0) + '%';
+    if (count) count.innerHTML = `<span class="done">${sChecked}</span>/${sTotal}`;
+    if (sec) {
+      if (sChecked === sTotal && sTotal > 0) sec.classList.add('complete');
+      else sec.classList.remove('complete');
+    }
+  });
+}
+
+function toggleItem(si, ii, event) {
+  event.stopPropagation();
+  const key = `${si}_${ii}`;
+  state[key] = !state[key];
+  saveState();
+  const el = document.getElementById(`item_${si}_${ii}`);
+  if (el) { if (state[key]) el.classList.add('checked'); else el.classList.remove('checked'); }
+  updateProgress();
+}
+
+function toggleSub(si, ii, subi, event) {
+  event.stopPropagation();
+  const key = `${si}_${ii}_${subi}`;
+  state[key] = !state[key];
+  saveState();
+  const el = document.getElementById(`sub_${si}_${ii}_${subi}`);
+  if (el) { if (state[key]) el.classList.add('checked'); else el.classList.remove('checked'); }
+  updateProgress();
+}
+
+function toggleSection(si) {
+  const el = document.getElementById(`section_${si}`);
+  if (el) el.classList.toggle('collapsed');
+}
+
+function resetAll() {
+  if (!confirm('לאפס את כל הסימונים?')) return;
+  state = {};
+  saveState();
+  document.querySelectorAll('.item.no-subs').forEach(el => el.classList.remove('checked'));
+  document.querySelectorAll('.sub-item').forEach(el => el.classList.remove('checked'));
+  updateProgress();
+}
+
+// Index of first English section
+const FIRST_EN = SECTIONS.findIndex(s => s.english);
+
+function render() {
+  const container = document.getElementById('checklistContainer');
+  container.innerHTML = '';
+
+  // Hebrew group label
+  const heLabel = document.createElement('div');
+  heLabel.className = 'section-group-label';
+  heLabel.textContent = '🔍 בדיקת מסירה';
+  container.appendChild(heLabel);
+
+  SECTIONS.forEach((section, si) => {
+    // English group label before first English section
+    if (si === FIRST_EN) {
+      const enLabel = document.createElement('div');
+      enLabel.className = 'section-group-label en';
+      enLabel.textContent = '⚙️ Day 1 Settings';
+      container.appendChild(enLabel);
+    }
+
+    const keys = getSectionKeys(si);
+    const sChecked = keys.filter(k => state[k]).length;
+    const sTotal = keys.length;
+    const pctS = sTotal > 0 ? sChecked / sTotal * 100 : 0;
+    const isEn = !!section.english;
+    const isComplete = sChecked === sTotal && sTotal > 0;
+
+    const sectionDiv = document.createElement('div');
+    sectionDiv.className = 'section' + (isEn ? ' english' : '') + (isComplete ? ' complete' : '');
+    sectionDiv.id = `section_${si}`;
+
+    // Section label: use letter for English, number for Hebrew
+    const numLabel = isEn ? String.fromCharCode(65 + (si - FIRST_EN)) : String(si + 1);
+
+    const itemsHtml = section.items.map((item, ii) => {
+      const hasSubs = item.subs && item.subs.length > 0;
+
+      if (hasSubs) {
+        const subsHtml = item.subs.map((sub, subi) => {
+          const key = `${si}_${ii}_${subi}`;
+          const cls = state[key] ? 'checked' : '';
+          return `
+            <div class="sub-item ${cls}" id="sub_${si}_${ii}_${subi}" onclick="toggleSub(${si},${ii},${subi},event)">
+              <div class="sub-checkbox"><span class="sub-checkmark">✓</span></div>
+              <div class="sub-text">${sub}</div>
+            </div>`;
+        }).join('');
+        return `
+          <div class="item has-subs">
+            <div class="item-label">${item.text}</div>
+            <div class="sub-list">${subsHtml}</div>
+          </div>`;
+      } else {
+        const key = `${si}_${ii}`;
+        const cls = state[key] ? 'checked' : '';
+        return `
+          <div class="item no-subs ${cls}" id="item_${si}_${ii}" onclick="toggleItem(${si},${ii},event)">
+            <div class="checkbox"><span class="checkmark">✓</span></div>
+            <div class="item-text">${item.text}</div>
+          </div>`;
+      }
+    }).join('');
+
+    sectionDiv.innerHTML = `
+      <div class="section-header" onclick="toggleSection(${si})">
+        <div class="section-num">${numLabel}</div>
+        <div class="section-title">${section.title}</div>
+        <div class="section-meta">
+          <div class="mini-bar"><div class="mini-bar-fill" id="fill_${si}" style="width:${pctS}%"></div></div>
+          <div class="section-count" id="count_${si}"><span class="done">${sChecked}</span>/${sTotal}</div>
+        </div>
+        <div class="chevron">▲</div>
+      </div>
+      <div class="section-body">${itemsHtml}</div>
+    `;
+
+    container.appendChild(sectionDiv);
+  });
+}
+
+loadState();
+render();
+updateProgress();
+</script>
 </body>
 </html>
